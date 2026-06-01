@@ -3,10 +3,10 @@ import pandas as pd
 import json
 import os
 
-# Set a wide, professional dashboard layout
-st.set_page_config(layout="wide", page_title="California Freeway Live Telemetry")
+# Set a wide, professional layout to support columns
+st.set_page_config(layout="wide", page_title="California Highway Live Telemetry")
 
-st.title("🚨 Live Freeway Incident Telemetry")
+st.title("🚨 Live Highway Incident Telemetry")
 st.subheader("Real-time automated traffic narrative & dispatcher logs")
 
 FILE_PATH = "live_hotspots.json"
@@ -25,13 +25,18 @@ else:
     st.stop()
 
 # 2. Pre-process and clean data for mapping
-# Filter out rows missing geographic coordinates
-map_df = df.dropna(subset=['Latitude', 'Longitude']).copy()
-map_df['Latitude'] = pd.to_numeric(map_df['Latitude'], errors='coerce')
-map_df['Longitude'] = pd.to_numeric(map_df['Longitude'], errors='coerce')
-map_df = map_df.dropna(subset=['Latitude', 'Longitude'])
+if "Latitude" in df.columns and "Longitude" in df.columns:
+    map_df = df.copy()
+    # Force coordinates to numeric decimals, converting errors or "Unknowns" into NaN
+    map_df['Latitude'] = pd.to_numeric(map_df['Latitude'], errors='coerce')
+    map_df['Longitude'] = pd.to_numeric(map_df['Longitude'], errors='coerce')
+    
+    # Drop rows that do not have valid GPS numbers
+    map_df = map_df.dropna(subset=['Latitude', 'Longitude'])
+else:
+    map_df = pd.DataFrame(columns=['Latitude', 'Longitude'])
 
-# Create our side-by-side executive column layout
+# Create our side-by-side layout (60% Map, 40% News Feed)
 col1, col2 = st.columns([3, 2])
 
 # ==========================================
@@ -40,8 +45,13 @@ col1, col2 = st.columns([3, 2])
 with col1:
     st.markdown("### 🗺️ Geographic Hotspots")
     if not map_df.empty:
-        # Streamlit's native interactive map
-        st.map(map_df, latitude="Latitude", longitude="Longitude", zoom=6)
+        # Explicit column parameters override Streamlit's default lowercase strictness
+        st.map(
+            map_df, 
+            latitude="Latitude", 
+            longitude="Longitude", 
+            zoom=6
+        )
     else:
         st.info("No active geo-coordinates available in this frame.")
 
@@ -51,24 +61,23 @@ with col1:
 with col2:
     st.markdown("### 📰 Live Dispatch Narratives")
     
-    # Reverse the list so the newest incidents appear at the top of the feed
+    # Reverse the order so the newest items show up at the top
     for index, row in df.iloc[::-1].iterrows():
-        # Fetch the narrative summary, fall back gracefully if it hasn't generated yet
+        # Handle empty/missing summary text gracefully
         summary_text = row.get("Summary", "Processing AI telemetry analysis...")
         
-        # Determine if it's an error string, keep UI clean if so
+        # If the item currently holds an old execution error string, present it cleanly
         if str(summary_text).startswith("Error:"):
-            summary_text = "🔄 Queued for next reporting cycle."
+            summary_text = "🔄 Queued for next scheduled AI translation cycle."
             
-        # Get basic descriptive data points to frame the card header
         location = row.get("Location", "Unknown Location")
         raw_type = row.get("Incident Type", "Traffic Event")
         log_time = row.get("Time", "Recent")
 
-        # Render a clean, stylized visual container card for every single narrative
+        # Build an independent visual container block for each narrative card
         with st.container(border=True):
             st.markdown(f"**📍 {location}**")
             st.caption(f"⏱️ {log_time} | Raw Code: {raw_type}")
             
-            # Highlight the AI translated narrative text so it jumps out immediately
+            # Use the info banner styling to expose the clean narrative text instantly
             st.info(summary_text)
