@@ -75,13 +75,26 @@ with sync_playwright() as p:
     
     grid_soup = BeautifulSoup(page.content(), 'html.parser')
     main_table = grid_soup.find('table', {'id': 'gvIncidents'})
+    
+    # Grab the table headers so we can match the columns correctly
+    header_row = main_table.find_all('tr')[0]
+    headers = [th.text.strip() for th in header_row.find_all('th')]
+    
     grid_rows = main_table.find_all('tr')[1:] if main_table else []
+    
+    # Cache all metadata upfront so the bot doesn't have to re-parse it during the loop
+    cached_grid_data = []
+    for row in grid_rows:
+        cols = [td.text.strip() for td in row.find_all('td')]
+        cached_grid_data.append(dict(zip(headers, cols)))
     
     all_deep_incidents = []
     
-    # Cache the rows to avoid re-scraping the master table inside the loop
     for i in range(len(grid_rows)):
         print(f" -> Extracting profile {i+1}/{len(grid_rows)}...")
+        
+        # Retrieve the pre-cached metadata for this specific row
+        row_data = cached_grid_data[i]
         
         # Click the specific link for this row
         page.locator("table#gvIncidents td a:has-text('Details')").nth(i).click()
@@ -100,19 +113,14 @@ with sync_playwright() as p:
                 lat, lng = coord_match.group(1), coord_match.group(2)
                 break
         
+        # Build the final fully mapped record
         all_deep_incidents.append({
-            "Incident_No": grid_rows[i].find_all('td')[0].text.strip(),
+            "Incident_No": row_data.get("No.", "Unknown"),
+            "Time": row_data.get("Time", "Unknown"),
+            "Type": row_data.get("Type", "Unknown"),
             "Latitude": lat,
             "Longitude": lng,
             "Summary": "Pending AI analysis..."
         })
         
         page.go_back()
-        page.wait_for_selector("table#gvIncidents", state="visible")
-        
-    # Final data save and sync
-    with open(FILE_PATH, "w", encoding="utf-8") as f:
-        json.dump(all_deep_incidents, f, indent=4)
-        
-    push_to_github(all_deep_incidents)
-    browser.close()
