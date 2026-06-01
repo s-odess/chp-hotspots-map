@@ -4,7 +4,6 @@ from streamlit_folium import st_folium
 import json
 import os
 
-# Set page configuration
 st.set_page_config(
     page_title="CHP Live Hotspots Map",
     page_icon="🚓",
@@ -14,7 +13,6 @@ st.set_page_config(
 st.title("🚓 California Highway Patrol Live Dispatch Hotspots")
 st.markdown("Real-time cluster analysis of CHP dispatch traffic and high-activity zones.")
 
-# --- Data Loading with Defensive Fallback ---
 hotspots_data = []
 file_exists = os.path.exists("live_hotspots.json")
 
@@ -27,7 +25,6 @@ if file_exists:
 else:
     st.info("📡 No live data file found (`live_hotspots.json`). Displaying base map fallback.")
 
-# --- Metrics Dashboard Section ---
 col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(label="Total Active Hotspots", value=len(hotspots_data))
@@ -35,7 +32,6 @@ with col2:
     status_indicator = "Online" if file_exists else "Waiting for Data"
     st.metric(label="Data Pipeline Status", value=status_indicator)
 with col3:
-    # Safely extract time from the data array
     last_update = "N/A"
     if hotspots_data and isinstance(hotspots_data, list) and len(hotspots_data) > 0:
         last_update = hotspots_data[0].get("Time", "N/A")
@@ -43,17 +39,13 @@ with col3:
 
 st.write("---")
 
-# Render map base focused on California
 CA_CENTER = [36.7783, -119.4179]
 m = folium.Map(location=CA_CENTER, zoom_start=6, tiles="CartoDB positron")
 
-# Populate map if data is available
 if hotspots_data and isinstance(hotspots_data, list):
     for hotspot in hotspots_data:
-        # Match capital keys produced by chp_hotspots_engine.py
         if "Latitude" in hotspot and "Longitude" in hotspot:
             try:
-                # Handle cases where value is "Unknown"
                 if hotspot["Latitude"] == "Unknown" or hotspot["Longitude"] == "Unknown":
                     continue
                     
@@ -61,15 +53,12 @@ if hotspots_data and isinstance(hotspots_data, list):
                 lon = float(hotspot["Longitude"])
                 location_name = hotspot.get("Location_Short", "Unknown Location")
                 incident_type = hotspot.get("Type", "Unknown Incident")
-                
-                # Check for AI summary field, fall back smoothly if agent.py hasn't parsed it yet
                 description = hotspot.get("AI_Summary", "Processing live dispatch telemetry...")
                 
-                # Create popup text layout
                 popup_text = f"""
                 <b>Location:</b> {location_name}<br>
                 <b>Type:</b> {incident_type}<br>
-                <b>AI Analysis:</b> {description}
+                <b>Summary:</b> {description}
                 """
                 
                 folium.CircleMarker(
@@ -84,5 +73,4 @@ if hotspots_data and isinstance(hotspots_data, list):
             except (ValueError, TypeError):
                 continue
 
-# Render object frame
 st_folium(m, width=None, height=550, use_container_width=True)
