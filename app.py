@@ -40,7 +40,7 @@ if data:
     
     # 4. FIXED: Use width='stretch' instead of use_container_width=True
     st.subheader("Current Dispatch Feed")
-    st.dataframe(df[['Incident_No', 'Time', 'Type', 'Summary']], width=None) 
+    st.dataframe(df[['Incident_No', 'Time', 'Type', 'Summary']])
     # Note: If width=None, it defaults to auto-sizing. 
     # Use width='stretch' if you want it to fill the screen.
 else:
