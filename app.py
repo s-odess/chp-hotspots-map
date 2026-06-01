@@ -1,42 +1,81 @@
 import streamlit as st
-import json
 import folium
 from streamlit_folium import st_folium
+import json
+import os
 
-st.set_page_config(layout="wide", page_title="CHP Incident Triage")
+# Set page configuration
+st.set_page_config(
+    page_title="CHP Live Hotspots Map",
+    page_icon="🚓",
+    layout="wide"
+)
 
-# Load data
-with open("live_hotspots.json", "r", encoding="utf-8") as f:
-    incidents = json.load(f)
+st.title("🚓 California Highway Patrol Live Dispatch Hotspots")
+st.markdown("Real-time cluster analysis of CHP dispatch traffic and high-activity zones.")
 
-st.title("🚨 Live CHP Incident Triage Center")
+# --- Data Loading with Defensive Fallback ---
+hotspots_data = []
+file_exists = os.path.exists("live_hotspots.json")
 
-# Create two columns
-col1, col2 = st.columns([1, 1])
+if file_exists:
+    try:
+        with open("live_hotspots.json", "r", encoding="utf-8") as f:
+            hotspots_data = json.load(f)
+    except Exception as e:
+        st.error(f"Error reading data file: {e}")
+else:
+    st.info("📡 No live data file found (`live_hotspots.json`). Displaying base map fallback.")
 
+# --- Metrics Dashboard Section ---
+col1, col2, col3 = st.columns(3)
 with col1:
-    st.subheader("📍 Geospatial View")
-    m = folium.Map(location=[36.7783, -119.4179], zoom_start=6)
-    
-    for inc in incidents:
-        if inc.get("Latitude") != "Unknown":
-            # Plot the marker
-            folium.CircleMarker(
-                location=[float(inc.get("Latitude")), float(inc.get("Longitude"))],
-                radius=10,
-                color="red",
-                fill=True,
-                popup=f"ID: {inc.get('Incident_No')}"
-            ).add_to(m)
-    st_folium(m, width=600, height=500)
-
+    st.metric(label="Total Active Hotspots", value=len(hotspots_data))
 with col2:
-    st.subheader("📰 AI-Generated News Summaries")
-    for inc in incidents:
-        # Use AI_Summary if it exists, otherwise fallback to Raw Logs
-        summary = inc.get("AI_Summary", inc.get("Extended_Log_Details", "No details available."))
-        
-        with st.expander(f"INCIDENT {inc.get('Incident_No')}: {inc.get('Type')}"):
-            st.markdown(f"**Location:** {inc.get('Location_Short')}")
-            st.markdown(f"**Triage Report:**")
-            st.write(summary)
+    status_indicator = "Online" if file_exists else "Waiting for Data"
+    st.metric(label="Data Pipeline Status", value=status_indicator)
+with col3:
+    # Safely extract timestamp if data exists, otherwise default
+    last_update = hotspots_data[0].get("timestamp", "N/A") if (hotspots_data and isinstance(hotspots_data, list)) else "N/A"
+    st.metric(label="Last Pipeline Run", value=last_update)
+
+st.write("---")
+
+# --- Map Generation ---
+# Center on California coordinates
+CA_CENTER = [36.7783, -119.4179]
+m = folium.Map(location=CA_CENTER, zoom_start=6, tiles="CartoDB positron")
+
+# Populate map if data is available
+if hotspots_data and isinstance(hotspots_data, list):
+    for hotspot in hotspots_data:
+        # Prevent map crashes from missing keys or coordinates
+        if "latitude" in hotspot and "longitude" in hotspot:
+            lat = hotspot["latitude"]
+            lon = hotspot["longitude"]
+            location_name = hotspot.get("location", "Unknown Location")
+            incident_count = hotspot.get("incident_count", 1)
+            description = hotspot.get("description", "No details provided.")
+            
+            # Create popup text
+            popup_text = f"""
+            <b>Location:</b> {location_name}<br>
+            <b>Active Incidents:</b> {incident_count}<br>
+            <b>AI Analysis:</b> {description}
+            """
+            
+            # Scale marker size dynamically based on incident density
+            radius_size = max(10, min(incident_count * 5, 40))
+            
+            folium.CircleMarker(
+                location=[lat, lon],
+                radius=radius_size,
+                popup=folium.Popup(popup_text, max_width=300),
+                color="crimson",
+                fill=True,
+                fill_color="crimson",
+                fill_opacity=0.6
+            ).add_to(m)
+
+# Render map in Streamlit layout
+st_folium(m, width=None, height=550, use_container_width=True)
