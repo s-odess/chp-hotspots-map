@@ -6,7 +6,7 @@ import requests
 from dotenv import load_dotenv
 from google import genai
 
-# 1. Load security environment variables (Handles local and cloud seamlessly)
+# 1. Load security environment variables
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
@@ -19,13 +19,19 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
-# 2. Load data
-try:
-    with open(FILE_PATH, "r", encoding="utf-8") as f:
-        incidents = json.load(f)
-except FileNotFoundError:
-    print(f"[-] Error: {FILE_PATH} not found.")
-    exit(1)
+# 2. Robust Data Loading Guardrail
+incidents = []
+if os.path.exists(FILE_PATH) and os.path.getsize(FILE_PATH) > 0:
+    try:
+        with open(FILE_PATH, "r", encoding="utf-8") as f:
+            incidents = json.load(f)
+        print(f"[+] Successfully loaded {len(incidents)} records from {FILE_PATH}.")
+    except json.JSONDecodeError:
+        print(f"[!] Warning: {FILE_PATH} was corrupted or malformed. Initializing empty dataset.")
+        incidents = []
+else:
+    print(f"[!] Warning: {FILE_PATH} not found or empty. Initializing empty dataset.")
+    incidents = []
 
 # 3. Filtering guardrail
 def is_valid(incident):
@@ -102,14 +108,13 @@ for i, incident in enumerate(incidents):
         incident["Summary"] = summary
         analyzed_count += 1
         print(f"[+] Summary saved locally.")
-        time.sleep(4.5)  # Optimized cloud throttle: fits well within the 15 requests/min bracket
+        time.sleep(4.5)  # Optimized cloud throttle
 
 # 6. Save and Push updated data
-if analyzed_count > 0:
+if analyzed_count > 0 or len(incidents) > 0:
     with open(FILE_PATH, "w", encoding="utf-8") as f:
         json.dump(incidents, f, indent=4)
     print("[+] Local data backup saved successfully.")
     push_to_github(incidents)
 else:
-    print("[*] No new incidents required analysis. Ensuring remote dataset synchronization...")
-    push_to_github(incidents)
+    print("[*] Zero active incidents detected. No update required.")
