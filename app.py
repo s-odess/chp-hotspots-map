@@ -35,47 +35,54 @@ with col2:
     status_indicator = "Online" if file_exists else "Waiting for Data"
     st.metric(label="Data Pipeline Status", value=status_indicator)
 with col3:
-    # Safely extract timestamp if data exists, otherwise default
-    last_update = hotspots_data[0].get("timestamp", "N/A") if (hotspots_data and isinstance(hotspots_data, list)) else "N/A"
+    # Safely extract time from the data array
+    last_update = "N/A"
+    if hotspots_data and isinstance(hotspots_data, list) and len(hotspots_data) > 0:
+        last_update = hotspots_data[0].get("Time", "N/A")
     st.metric(label="Last Pipeline Run", value=last_update)
 
 st.write("---")
 
-# --- Map Generation ---
-# Center on California coordinates
+# Render map base focused on California
 CA_CENTER = [36.7783, -119.4179]
 m = folium.Map(location=CA_CENTER, zoom_start=6, tiles="CartoDB positron")
 
 # Populate map if data is available
 if hotspots_data and isinstance(hotspots_data, list):
     for hotspot in hotspots_data:
-        # Prevent map crashes from missing keys or coordinates
-        if "latitude" in hotspot and "longitude" in hotspot:
-            lat = hotspot["latitude"]
-            lon = hotspot["longitude"]
-            location_name = hotspot.get("location", "Unknown Location")
-            incident_count = hotspot.get("incident_count", 1)
-            description = hotspot.get("description", "No details provided.")
-            
-            # Create popup text
-            popup_text = f"""
-            <b>Location:</b> {location_name}<br>
-            <b>Active Incidents:</b> {incident_count}<br>
-            <b>AI Analysis:</b> {description}
-            """
-            
-            # Scale marker size dynamically based on incident density
-            radius_size = max(10, min(incident_count * 5, 40))
-            
-            folium.CircleMarker(
-                location=[lat, lon],
-                radius=radius_size,
-                popup=folium.Popup(popup_text, max_width=300),
-                color="crimson",
-                fill=True,
-                fill_color="crimson",
-                fill_opacity=0.6
-            ).add_to(m)
+        # Match capital keys produced by chp_hotspots_engine.py
+        if "Latitude" in hotspot and "Longitude" in hotspot:
+            try:
+                # Handle cases where value is "Unknown"
+                if hotspot["Latitude"] == "Unknown" or hotspot["Longitude"] == "Unknown":
+                    continue
+                    
+                lat = float(hotspot["Latitude"])
+                lon = float(hotspot["Longitude"])
+                location_name = hotspot.get("Location_Short", "Unknown Location")
+                incident_type = hotspot.get("Type", "Unknown Incident")
+                
+                # Check for AI summary field, fall back smoothly if agent.py hasn't parsed it yet
+                description = hotspot.get("AI_Summary", "Processing live dispatch telemetry...")
+                
+                # Create popup text layout
+                popup_text = f"""
+                <b>Location:</b> {location_name}<br>
+                <b>Type:</b> {incident_type}<br>
+                <b>AI Analysis:</b> {description}
+                """
+                
+                folium.CircleMarker(
+                    location=[lat, lon],
+                    radius=15,
+                    popup=folium.Popup(popup_text, max_width=300),
+                    color="crimson",
+                    fill=True,
+                    fill_color="crimson",
+                    fill_opacity=0.6
+                ).add_to(m)
+            except (ValueError, TypeError):
+                continue
 
-# Render map in Streamlit layout
+# Render object frame
 st_folium(m, width=None, height=550, use_container_width=True)
