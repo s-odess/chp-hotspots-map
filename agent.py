@@ -109,12 +109,19 @@ def push_to_github(data_list):
 # 5. Process incidents
 print(f"[+] Commencing record evaluation loop...")
 analyzed_count = 0
+max_per_run = 3  # STRICT FREE TIER GUARDRAIL: Only allow 3 AI requests per execution
 
 for i, incident in enumerate(incidents):
-    # Clear out previous error strings so the engine can regenerate them cleanly
+    # If we have reached our free-tier allocation for this run, stop processing new items
+    if analyzed_count >= max_per_run:
+        print(f"[!] Reached maximum limit of {max_per_run} requests for this run. Saving quota.")
+        break
+
+    # Clear out previous error strings so the engine can retry them cleanly
     if "Summary" in incident and incident["Summary"].startswith("Error:"):
         del incident["Summary"]
 
+    # Skip items that already have a successful summary
     if "Summary" in incident:
         continue
         
@@ -125,7 +132,7 @@ for i, incident in enumerate(incidents):
             incident["Summary"] = summary
             analyzed_count += 1
             print(f"[+] Step successful. Summary verified.")
-            time.sleep(4.5)  # Safe cloud pacing pacing
+            time.sleep(4.5)  # Safe cloud pacing
         except Exception as core_error:
             print(f"[-] Critical failure encountered: {core_error}")
             print("[-] Halted pipeline to preserve existing local data records.")

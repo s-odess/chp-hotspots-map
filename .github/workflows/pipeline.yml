@@ -2,33 +2,31 @@
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
-  workflow_dispatch:
+    # Runs 6 times a day: Midnight, 4 AM, 8 AM, Noon, 4 PM, 8 PM UTC
+    # Distributes your 20 free-tier daily requests perfectly across 24 hours!
+    - cron: '0 0,4,8,12,16,20 * * *'
+  workflow_dispatch: # Keeps the manual "Run workflow" button active for testing
 
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout repository source files
+    - name: Checkout Repository Code
       uses: actions/checkout@v4
 
-    - name: Initialize Cloud Python Environment
+    - name: Set Up Python Environment
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
         cache: 'pip'
 
-    - name: Install Application Dependencies
+    - name: Install Architecture Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install playwright beautifulsoup4 requests python-dotenv google-genai
-        playwright install chromium --with-deps
+        pip install google-genai python-dotenv requests
 
-    - name: Run Telemetry Scraper Engine
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        GITHUB_REPO: "s-odess/chp-hotspots-map"
+    - name: Run CHP Scraping Engine
       run: python chp_hotspots_engine.py
 
     - name: Run Gemini Summary Translation Agent
@@ -36,4 +34,4 @@ jobs:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         GITHUB_REPO: "s-odess/chp-hotspots-map"
-      run: python agent.py
+      run: python -u agent.py
