@@ -1,1 +1,3 @@
-.env.txtlive_hotspots.json*.png*.html__pycache__/
+﻿*.txt
+*.png
+*.html

@@ -4,6 +4,7 @@ from streamlit_folium import st_folium
 import json
 import os
 
+# Set page configuration
 st.set_page_config(
     page_title="CHP Live Hotspots Map",
     page_icon="🚓",
@@ -13,6 +14,7 @@ st.set_page_config(
 st.title("🚓 California Highway Patrol Live Dispatch Hotspots")
 st.markdown("Real-time cluster analysis of CHP dispatch traffic and high-activity zones.")
 
+# --- Data Loading ---
 hotspots_data = []
 file_exists = os.path.exists("live_hotspots.json")
 
@@ -25,11 +27,12 @@ if file_exists:
 else:
     st.info("📡 No live data file found (`live_hotspots.json`). Displaying base map fallback.")
 
+# --- Metrics Dashboard Section ---
 col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(label="Total Active Hotspots", value=len(hotspots_data))
 with col2:
-    status_indicator = "Online" if file_exists else "Waiting for Data"
+    status_indicator = "Online" if (file_exists and len(hotspots_data) > 0) else "Waiting for Data"
     st.metric(label="Data Pipeline Status", value=status_indicator)
 with col3:
     last_update = "N/A"
@@ -39,9 +42,11 @@ with col3:
 
 st.write("---")
 
+# Render map base focused on California
 CA_CENTER = [36.7783, -119.4179]
 m = folium.Map(location=CA_CENTER, zoom_start=6, tiles="CartoDB positron")
 
+# Populate map if data is available
 if hotspots_data and isinstance(hotspots_data, list):
     for hotspot in hotspots_data:
         if "Latitude" in hotspot and "Longitude" in hotspot:
@@ -53,7 +58,9 @@ if hotspots_data and isinstance(hotspots_data, list):
                 lon = float(hotspot["Longitude"])
                 location_name = hotspot.get("Location_Short", "Unknown Location")
                 incident_type = hotspot.get("Type", "Unknown Incident")
-                description = hotspot.get("AI_Summary", "Processing live dispatch telemetry...")
+                
+                # Check for Summary field produced by agent.py
+                description = hotspot.get("Summary", "Processing live dispatch telemetry...")
                 
                 popup_text = f"""
                 <b>Location:</b> {location_name}<br>

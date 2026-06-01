@@ -1,25 +1,30 @@
 import os
 import json
 import time
+import base64
+import requests
 from dotenv import load_dotenv
 from google import genai
 
-# 1. Load security vault and client
-load_dotenv()
+# 1. Load security environment variables
+load_dotenv(".env.txt")
 api_key = os.getenv("GEMINI_API_KEY")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_REPO = os.getenv("GITHUB_REPO")
+FILE_PATH = "live_hotspots.json"
 
 if not api_key:
-    print("[-] Error: GEMINI_API_KEY not found in .env file.")
+    print("[-] Error: GEMINI_API_KEY not found in env configuration.")
     exit(1)
 
 client = genai.Client(api_key=api_key)
 
 # 2. Load data
 try:
-    with open("live_hotspots.json", "r", encoding="utf-8") as f:
+    with open(FILE_PATH, "r", encoding="utf-8") as f:
         incidents = json.load(f)
 except FileNotFoundError:
-    print("[-] Error: live_hotspots.json not found.")
+    print(f"[-] Error: {FILE_PATH} not found.")
     exit(1)
 
 # 3. Filtering guardrail
@@ -28,7 +33,6 @@ def is_valid(incident):
 
 # 4. Triage function with retry logic
 def get_triage(incident, retries=3):
-    # Only one prompt definition here!
     prompt = f"""
     Summarize this incident for a news desk. 
     IMPORTANT: Translate all technical police codes (like 23103, 1141, etc.) into plain, understandable English (e.g., 'Reckless Driving', 'Traffic Collision').
@@ -50,21 +54,62 @@ def get_triage(incident, retries=3):
                 raise e
     return "Error: Could not summarize incident."
 
+def push_to_github(data_list):
+    """Securely commits and pushes analyzed summaries straight to GitHub."""
+    if not GITHUB_TOKEN or not GITHUB_REPO:
+        print("[-] Skipping Cloud Sync: GITHUB_TOKEN or GITHUB_REPO not found in environment.")
+        return
+
+    print("[*] Initiating secure summary sync to GitHub API...")
+    api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+
+    json_content = json.dumps(data_list, indent=4)
+    encoded_content = base64.b64encode(json_content.encode("utf-8")).decode("utf-8")
+
+    sha = None
+    response = requests.get(api_url, headers=headers)
+    if response.status_code == 200:
+        sha = response.json().get("sha")
+
+    payload = {
+        "message": "Pipeline Auto-Update: Enriched incident summaries synced",
+        "content": encoded_content
+    }
+    if sha:
+        payload["sha"] = sha
+
+    put_response = requests.put(api_url, headers=headers, json=payload)
+    if put_response.status_code in [200, 201]:
+        print("[SUCCESS] Summaries synced to GitHub! Streamlit map updating...")
+    else:
+        print(f"[-] Cloud sync failed: {put_response.status_code} - {put_response.text}")
+
 # 5. Process incidents
 print(f"[+] Processing records...")
+analyzed_count = 0
+
 for i, incident in enumerate(incidents):
-    if "AI_Summary" in incident:
+    if "Summary" in incident:
         continue
         
     if is_valid(incident):
         print(f"[*] Triaging incident {i+1}...")
         summary = get_triage(incident)
-        incident["AI_Summary"] = summary
-        print(f"[+] Summary saved.")
+        incident["Summary"] = summary
+        analyzed_count += 1
+        print(f"[+] Summary saved locally.")
         time.sleep(15) 
 
-# 6. Save updated data
-with open("live_hotspots.json", "w", encoding="utf-8") as f:
-    json.dump(incidents, f, indent=4)
-
-print("[+] All valid incidents processed and saved.")
+# 6. Save and Push updated data
+if analyzed_count > 0:
+    with open(FILE_PATH, "w", encoding="utf-8") as f:
+        json.dump(incidents, f, indent=4)
+    print("[+] Local data backup saved successfully.")
+    push_to_github(incidents)
+else:
+    print("[*] No new incidents required analysis. Ensuring remote dataset synchronization...")
+    push_to_github(incidents)
