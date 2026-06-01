@@ -24,23 +24,19 @@ else:
     st.error("Initializing core database connection...")
     st.stop()
 
-# 2. Pre-process and clean data for mapping
+# 2. Pre-process and clean data strictly for mapping
 map_df = pd.DataFrame()
 if not df.empty and "Latitude" in df.columns and "Longitude" in df.columns:
-    # Build a clean copy containing only valid geographical coordinate matrices
+    # Create clean copy containing only valid geographical coordinate matrices
     map_df = df.copy()
     
-    # Ensure coordinates match strict floating-point numbers
-    map_df['Latitude'] = pd.to_numeric(map_df['Latitude'], errors='coerce')
-    map_df['Longitude'] = pd.to_numeric(map_df['Longitude'], errors='coerce')
+    # Force coordinates to stick to strict floating-point numbers
+    map_df['latitude'] = pd.to_numeric(map_df['Latitude'], errors='coerce')
+    map_df['longitude'] = pd.to_numeric(map_df['Longitude'], errors='coerce')
     
-    # Strip rows missing structural data arrays or holding map zero positions
-    map_df = map_df.dropna(subset=['Latitude', 'Longitude'])
-    map_df = map_df[(map_df['Latitude'] != 0) & (map_df['Longitude'] != 0)]
-    
-    # Generate matching lower-case aliases to guarantee map rendering compatibility
-    map_df['lat'] = map_df['Latitude']
-    map_df['lon'] = map_df['Longitude']
+    # Drop rows that are missing coordinate values or are zero positions
+    map_df = map_df.dropna(subset=['latitude', 'longitude'])
+    map_df = map_df[(map_df['latitude'] != 0) & (map_df['longitude'] != 0)]
 
 # Create our side-by-side executive column layout
 col1, col2 = st.columns([3, 2])
@@ -51,13 +47,8 @@ col1, col2 = st.columns([3, 2])
 with col1:
     st.markdown("### 🗺️ Geographic Hotspots")
     if not map_df.empty:
-        try:
-            # Render using standard lowercase alignment mappings
-            st.map(map_df, zoom=5)
-        except Exception:
-            # Absolute fallback layout parameter rendering if the container object glitches
-            st.write("Refreshing map parameters...")
-            st.map(map_df, latitude="Latitude", longitude="Longitude", zoom=5)
+        # Streamlit perfectly renders map data objects when explicitly fed lowercase column handles
+        st.map(map_df[['latitude', 'longitude']], zoom=5)
     else:
         st.info("No active geo-coordinates available in this frame.")
 
@@ -76,13 +67,14 @@ with col2:
             if str(summary_text).startswith("Error:"):
                 summary_text = "🔄 Queued for next scheduled AI translation cycle."
                 
-            location = row.get("Location", "Unknown Location")
-            raw_type = row.get("Incident Type", "Traffic Event")
+            # DATA MATCH PATCH: Extract variables using keys matching the scraping engine
+            incident_id = row.get("Incident_No", "Unknown ID")
+            raw_type = row.get("Type", "Traffic Event")
             log_time = row.get("Time", "Recent")
 
             # Render an independent visual container card for every single narrative
             with st.container(border=True):
-                st.markdown(f"**📍 {location}**")
+                st.markdown(f"**📍 Incident Log #{incident_id}**")
                 st.caption(f"⏱️ {log_time} | Raw Code: {raw_type}")
                 st.info(summary_text)
     else:
