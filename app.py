@@ -1,83 +1,74 @@
 import streamlit as st
-import folium
-from streamlit_folium import st_folium
+import pandas as pd
 import json
 import os
 
-# Set page configuration
-st.set_page_config(
-    page_title="CHP Live Hotspots Map",
-    page_icon="🚓",
-    layout="wide"
-)
+# Set a wide, professional dashboard layout
+st.set_page_config(layout="wide", page_title="California Freeway Live Telemetry")
 
-st.title("🚓 California Highway Patrol Live Dispatch Hotspots")
-st.markdown("Real-time cluster analysis of CHP dispatch traffic and high-activity zones.")
+st.title("🚨 Live Freeway Incident Telemetry")
+st.subheader("Real-time automated traffic narrative & dispatcher logs")
 
-# --- Data Loading ---
-hotspots_data = []
-file_exists = os.path.exists("live_hotspots.json")
+FILE_PATH = "live_hotspots.json"
 
-if file_exists:
+# 1. Load the live production dataset
+if os.path.exists(FILE_PATH) and os.path.getsize(FILE_PATH) > 0:
     try:
-        with open("live_hotspots.json", "r", encoding="utf-8") as f:
-            hotspots_data = json.load(f)
-    except Exception as e:
-        st.error(f"Error reading data file: {e}")
+        with open(FILE_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        df = pd.DataFrame(data)
+    except Exception:
+        st.error("Telemetry link establishing... (Waiting for fresh data cycle)")
+        st.stop()
 else:
-    st.info("📡 No live data file found (`live_hotspots.json`). Displaying base map fallback.")
+    st.error("Initializing core database connection...")
+    st.stop()
 
-# --- Metrics Dashboard Section ---
-col1, col2, col3 = st.columns(3)
+# 2. Pre-process and clean data for mapping
+# Filter out rows missing geographic coordinates
+map_df = df.dropna(subset=['Latitude', 'Longitude']).copy()
+map_df['Latitude'] = pd.to_numeric(map_df['Latitude'], errors='coerce')
+map_df['Longitude'] = pd.to_numeric(map_df['Longitude'], errors='coerce')
+map_df = map_df.dropna(subset=['Latitude', 'Longitude'])
+
+# Create our side-by-side executive column layout
+col1, col2 = st.columns([3, 2])
+
+# ==========================================
+# COLUMN 1: THE GEOSPATIAL MAP LAYER
+# ==========================================
 with col1:
-    st.metric(label="Total Active Hotspots", value=len(hotspots_data))
+    st.markdown("### 🗺️ Geographic Hotspots")
+    if not map_df.empty:
+        # Streamlit's native interactive map
+        st.map(map_df, latitude="Latitude", longitude="Longitude", zoom=6)
+    else:
+        st.info("No active geo-coordinates available in this frame.")
+
+# ==========================================
+# COLUMN 2: THE LIVE NEWS TICKER (No drill-downs!)
+# ==========================================
 with col2:
-    status_indicator = "Online" if (file_exists and len(hotspots_data) > 0) else "Waiting for Data"
-    st.metric(label="Data Pipeline Status", value=status_indicator)
-with col3:
-    last_update = "N/A"
-    if hotspots_data and isinstance(hotspots_data, list) and len(hotspots_data) > 0:
-        last_update = hotspots_data[0].get("Time", "N/A")
-    st.metric(label="Last Pipeline Run", value=last_update)
+    st.markdown("### 📰 Live Dispatch Narratives")
+    
+    # Reverse the list so the newest incidents appear at the top of the feed
+    for index, row in df.iloc[::-1].iterrows():
+        # Fetch the narrative summary, fall back gracefully if it hasn't generated yet
+        summary_text = row.get("Summary", "Processing AI telemetry analysis...")
+        
+        # Determine if it's an error string, keep UI clean if so
+        if str(summary_text).startswith("Error:"):
+            summary_text = "🔄 Queued for next reporting cycle."
+            
+        # Get basic descriptive data points to frame the card header
+        location = row.get("Location", "Unknown Location")
+        raw_type = row.get("Incident Type", "Traffic Event")
+        log_time = row.get("Time", "Recent")
 
-st.write("---")
-
-# Render map base focused on California
-CA_CENTER = [36.7783, -119.4179]
-m = folium.Map(location=CA_CENTER, zoom_start=6, tiles="CartoDB positron")
-
-# Populate map if data is available
-if hotspots_data and isinstance(hotspots_data, list):
-    for hotspot in hotspots_data:
-        if "Latitude" in hotspot and "Longitude" in hotspot:
-            try:
-                if hotspot["Latitude"] == "Unknown" or hotspot["Longitude"] == "Unknown":
-                    continue
-                    
-                lat = float(hotspot["Latitude"])
-                lon = float(hotspot["Longitude"])
-                location_name = hotspot.get("Location_Short", "Unknown Location")
-                incident_type = hotspot.get("Type", "Unknown Incident")
-                
-                # Check for Summary field produced by agent.py
-                description = hotspot.get("Summary", "Processing live dispatch telemetry...")
-                
-                popup_text = f"""
-                <b>Location:</b> {location_name}<br>
-                <b>Type:</b> {incident_type}<br>
-                <b>Summary:</b> {description}
-                """
-                
-                folium.CircleMarker(
-                    location=[lat, lon],
-                    radius=15,
-                    popup=folium.Popup(popup_text, max_width=300),
-                    color="crimson",
-                    fill=True,
-                    fill_color="crimson",
-                    fill_opacity=0.6
-                ).add_to(m)
-            except (ValueError, TypeError):
-                continue
-
-st_folium(m, width=None, height=550, use_container_width=True)
+        # Render a clean, stylized visual container card for every single narrative
+        with st.container(border=True):
+            st.markdown(f"**📍 {location}**")
+            st.caption(f"⏱️ {log_time} | Raw Code: {raw_type}")
+            
+            # Highlight the AI translated narrative text so it jumps out immediately
+            st.info(summary_text)
