@@ -2,46 +2,42 @@ import streamlit as st
 import pandas as pd
 import requests
 
-# Set page configuration
-st.set_page_config(page_title="CHP Live Hotspots", layout="wide")
-
+st.set_page_config(page_title="CHP Live", layout="wide")
 st.title("CHP Live Telemetry Map")
-st.subheader("Real-time Incident Tracking")
 
-# REPLACE 'YOUR_USERNAME' WITH YOUR ACTUAL GITHUB USERNAME
-raw_url = "https://raw.githubusercontent.com/s-odess/chp-hotspots-map/main/live_hotspots.json"
+# 1. Update this to your ACTUAL repo URL
+# Ensure this file is public in your GitHub repository
+raw_url = "https://raw.githubusercontent.com/YOUR_USERNAME/chp-hotspots-map/main/live_hotspots.json"
 
 @st.cache_data(ttl=60)
-def get_latest_data():
+def get_data():
     try:
         response = requests.get(raw_url, timeout=10)
         if response.status_code == 200:
             return response.json()
-        return None
-    except Exception:
-        return None
+        else:
+            return f"Error: Received status code {response.status_code}"
+    except Exception as e:
+        return f"Error: {str(e)}"
 
-# Load the data
-data = get_latest_data()
+data = get_data()
 
-if data:
+if isinstance(data, str):
+    st.error(f"Failed to load data: {data}")
+    st.write("Check if your JSON file is public and the URL is correct.")
+elif data:
     df = pd.DataFrame(data)
     
-    # 1. Clean data
+    # 2. Convert and Clean
     df['Latitude'] = pd.to_numeric(df['Latitude'], errors='coerce')
     df['Longitude'] = pd.to_numeric(df['Longitude'], errors='coerce')
     df = df.dropna(subset=['Latitude', 'Longitude'])
     
-    # 2. Rename for Streamlit map
+    # 3. Rename columns for map
     df = df.rename(columns={'Latitude': 'lat', 'Longitude': 'lon'})
     
-    # 3. Render the Map
+    # 4. Simple rendering (NO width arguments to avoid crashes)
     st.map(df)
-    
-    # 4. FIXED: Use width='stretch' instead of use_container_width=True
-    st.subheader("Current Dispatch Feed")
     st.dataframe(df[['Incident_No', 'Time', 'Type', 'Summary']])
-    # Note: If width=None, it defaults to auto-sizing. 
-    # Use width='stretch' if you want it to fill the screen.
 else:
-    st.warning("Data is currently syncing. Please wait...")
+    st.warning("No data found in JSON file.")
