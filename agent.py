@@ -6,22 +6,23 @@ import requests
 from dotenv import load_dotenv
 from google import genai
 
-# 1. Flexible Environment Loading (Checks cloud system first, falls back to local text file)
+# 1. Flexible Environment Loading (Handles local file or direct cloud RAM environment)
 if os.path.exists(".env.txt"):
     load_dotenv(".env.txt")
 else:
     load_dotenv()
 
-api_key = os.getenv("GEMINI_API_KEY")
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_REPO = os.getenv("GITHUB_REPO")
-FILE_PATH = "live_hotspots.json"
-
-if not api_key:
-    print("[-] Structural Error: GEMINI_API_KEY is completely blank or missing.")
+# Verify variable integrity before proceeding
+if not os.getenv("GEMINI_API_KEY"):
+    print("[-] Structural Error: GEMINI_API_KEY is missing from environment.")
     exit(1)
 
-client = genai.Client(api_key=api_key)
+# Auto-detects GEMINI_API_KEY natively from system environment variables
+client = genai.Client()
+
+FILE_PATH = "live_hotspots.json"
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_REPO = os.getenv("GITHUB_REPO")
 
 # 2. Robust Data Loading Guardrail
 incidents = []
@@ -41,7 +42,7 @@ else:
 def is_valid(incident):
     return incident.get("Latitude") != "Unknown" and incident.get("Longitude") != "Unknown"
 
-# 4. Triage function with strict error termination
+# 4. Triage function with strict error escalation
 def get_triage(incident, retries=3):
     prompt = f"""
     Summarize this incident for a news desk. 
@@ -60,17 +61,16 @@ def get_triage(incident, retries=3):
             error_msg = str(e)
             print(f"[!] API Exception encountered: {error_msg}")
             
-            # If it's a transient server overload or rate limit, wait and try again
+            # Catch transient network rate throttles or server busy states
             if "503" in error_msg or "RESOURCE_EXHAUSTED" in error_msg or "429" in error_msg:
                 wait = (attempt + 1) * 15
                 print(f"[!] Rate limit or server load. Retrying in {wait}s...")
                 time.sleep(wait)
             else:
-                # Critical security/auth exception: stop immediately so we don't write garbage text
-                print("[-] Critical Authentication or Structural API Failure. Aborting loop.")
+                # If it's a key configuration or authentication error, stop immediately!
                 raise e
                 
-    return "Error: Could not summarize incident."
+    raise RuntimeError("API failed to respond after multiple retries.")
 
 def push_to_github(data_list):
     """Securely commits and pushes data directly back into the repository timeline."""
@@ -111,8 +111,11 @@ print(f"[+] Commencing record evaluation loop...")
 analyzed_count = 0
 
 for i, incident in enumerate(incidents):
-    # Skip items that already have clean generated summaries
-    if "Summary" in incident and not incident["Summary"].startswith("Error:"):
+    # Clear out previous error strings so the engine can regenerate them cleanly
+    if "Summary" in incident and incident["Summary"].startswith("Error:"):
+        del incident["Summary"]
+
+    if "Summary" in incident:
         continue
         
     if is_valid(incident):
@@ -122,9 +125,10 @@ for i, incident in enumerate(incidents):
             incident["Summary"] = summary
             analyzed_count += 1
             print(f"[+] Step successful. Summary verified.")
-            time.sleep(4.5)  # Optimized cloud pacing
+            time.sleep(4.5)  # Safe cloud pacing pacing
         except Exception as core_error:
-            print(f"[-] Execution halted to protect data integrity: {core_error}")
+            print(f"[-] Critical failure encountered: {core_error}")
+            print("[-] Halted pipeline to preserve existing local data records.")
             exit(1)
 
 # 6. Save and Push updated data
