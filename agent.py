@@ -6,8 +6,8 @@ import requests
 from dotenv import load_dotenv
 from google import genai
 
-# 1. Load security environment variables
-load_dotenv(".env.txt")
+# 1. Load security environment variables (Handles local and cloud seamlessly)
+load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_REPO = os.getenv("GITHUB_REPO")
@@ -102,7 +102,7 @@ for i, incident in enumerate(incidents):
         incident["Summary"] = summary
         analyzed_count += 1
         print(f"[+] Summary saved locally.")
-        time.sleep(15) 
+        time.sleep(4.5)  # Optimized cloud throttle: fits well within the 15 requests/min bracket
 
 # 6. Save and Push updated data
 if analyzed_count > 0:
