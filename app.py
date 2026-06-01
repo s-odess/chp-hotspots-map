@@ -1,81 +1,47 @@
 import streamlit as st
 import pandas as pd
-import json
-import os
+import requests
 
-# Set a wide, professional dashboard layout
-st.set_page_config(layout="wide", page_title="California Highway Live Telemetry")
+# Set page config
+st.set_page_config(page_title="CHP Live Hotspots", layout="wide")
 
-st.title("🚨 Live Highway Incident Telemetry")
-st.subheader("Real-time automated traffic narrative & dispatcher logs")
+st.title("CHP Live Telemetry Map")
 
-FILE_PATH = "live_hotspots.json"
+# The URL to the raw JSON file on GitHub
+# REPLACE 'YOUR_USERNAME' WITH YOUR ACTUAL GITHUB USERNAME
+raw_url = "https://raw.githubusercontent.com/s-odess/chp-hotspots-map/main/live_hotspots.json"
 
-# 1. Load the live production dataset
-if os.path.exists(FILE_PATH) and os.path.getsize(FILE_PATH) > 0:
+@st.cache_data(ttl=300)  # Cache for 5 minutes, then refresh
+def get_latest_data():
     try:
-        with open(FILE_PATH, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        df = pd.DataFrame(data)
-    except Exception:
-        st.error("Telemetry link establishing... (Waiting for fresh data cycle)")
-        st.stop()
+        response = requests.get(raw_url)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            st.error(f"Failed to fetch data. Status code: {response.status_code}")
+            return None
+    except Exception as e:
+        st.error(f"Error fetching data: {e}")
+        return None
+
+# Load the data
+data = get_latest_data()
+
+if data:
+    df = pd.DataFrame(data)
+    
+    # Ensure coordinates are numeric
+    df['Latitude'] = pd.to_numeric(df['Latitude'], errors='coerce')
+    df['Longitude'] = pd.to_numeric(df['Longitude'], errors='coerce')
+    
+    # Drop rows where coordinates could not be parsed
+    df = df.dropna(subset=['Latitude', 'Longitude'])
+    
+    # Display the map
+    st.map(df)
+    
+    # Display the raw data table
+    st.subheader("Recent Incident Feed")
+    st.dataframe(df)
 else:
-    st.error("Initializing core database connection...")
-    st.stop()
-
-# 2. Pre-process and clean data strictly for mapping
-map_df = pd.DataFrame()
-if not df.empty and "Latitude" in df.columns and "Longitude" in df.columns:
-    # Create clean copy containing only valid geographical coordinate matrices
-    map_df = df.copy()
-    
-    # Force coordinates to stick to strict floating-point numbers
-    map_df['latitude'] = pd.to_numeric(map_df['Latitude'], errors='coerce')
-    map_df['longitude'] = pd.to_numeric(map_df['Longitude'], errors='coerce')
-    
-    # Drop rows that are missing coordinate values or are zero positions
-    map_df = map_df.dropna(subset=['latitude', 'longitude'])
-    map_df = map_df[(map_df['latitude'] != 0) & (map_df['longitude'] != 0)]
-
-# Create our side-by-side executive column layout
-col1, col2 = st.columns([3, 2])
-
-# ==========================================
-# COLUMN 1: THE GEOSPATIAL MAP LAYER
-# ==========================================
-with col1:
-    st.markdown("### 🗺️ Geographic Hotspots")
-    if not map_df.empty:
-        # Streamlit perfectly renders map data objects when explicitly fed lowercase column handles
-        st.map(map_df[['latitude', 'longitude']], zoom=5)
-    else:
-        st.info("No active geo-coordinates available in this frame.")
-
-# ==========================================
-# COLUMN 2: THE LIVE NEWS TICKER (No drill-downs!)
-# ==========================================
-with col2:
-    st.markdown("### 📰 Live Dispatch Narratives")
-    
-    if not df.empty:
-        # Reverse the list so the newest incidents appear at the top of the feed
-        for index, row in df.iloc[::-1].iterrows():
-            summary_text = row.get("Summary", "Processing AI telemetry analysis...")
-            
-            # Keep layout clean if item is queued for quota reset
-            if str(summary_text).startswith("Error:"):
-                summary_text = "🔄 Queued for next scheduled AI translation cycle."
-                
-            # DATA MATCH PATCH: Extract variables using keys matching the scraping engine
-            incident_id = row.get("Incident_No", "Unknown ID")
-            raw_type = row.get("Type", "Traffic Event")
-            log_time = row.get("Time", "Recent")
-
-            # Render an independent visual container card for every single narrative
-            with st.container(border=True):
-                st.markdown(f"**📍 Incident Log #{incident_id}**")
-                st.caption(f"⏱️ {log_time} | Raw Code: {raw_type}")
-                st.info(summary_text)
-    else:
-        st.info("Waiting for incoming traffic stream logs...")
+    st.warning("No data available yet. Please check the Pipeline Status on GitHub.")
