@@ -1,0 +1,39 @@
+﻿name: 24-7 CHP Live Telemetry Pipeline
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository source files
+      uses: actions/checkout@v4
+
+    - name: Initialize Cloud Python Environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install Application Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install playwright beautifulsoup4 requests python-dotenv google-genai
+        playwright install chromium --with-deps
+
+    - name: Run Telemetry Scraper Engine
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        GITHUB_REPO: "s-odess/chp-hotspots-map"
+      run: python chp_hotspots_engine.py
+
+    - name: Run Gemini Summary Translation Agent
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        GITHUB_REPO: "s-odess/chp-hotspots-map"
+      run: python agent.py
