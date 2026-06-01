@@ -106,7 +106,9 @@ def push_to_github(data_list):
     else:
         print(f"[-] Data push rejected: {put_response.status_code} - {put_response.text}")
 
-# 5. Process incidents
+# =====================================================================
+# 5. Process incidents (Graceful Quota-Insulated Loop)
+# =====================================================================
 print(f"[+] Commencing record evaluation loop...")
 analyzed_count = 0
 max_per_run = 3  # STRICT FREE TIER GUARDRAIL: Only allow 3 AI requests per execution
@@ -134,16 +136,21 @@ for i, incident in enumerate(incidents):
             print(f"[+] Step successful. Summary verified.")
             time.sleep(4.5)  # Safe cloud pacing
         except Exception as core_error:
-            print(f"[-] Critical failure encountered: {core_error}")
-            print("[-] Halted pipeline to preserve existing local data records.")
-            exit(1)
+            # DIAGNOSTIC RECOVERY PATCH: 
+            # If the API key is maxed out, do NOT crash the script. 
+            # Populate a clean UI string and break the loop so we can still sync coordinates!
+            print(f"[!] AI Pipeline Throttled: {core_error}")
+            print("[*] Gracefully halting AI summaries. Advancing data matrix to GitHub sync layer...")
+            
+            # Label this item cleanly so the UI knows it's waiting
+            if "Summary" not in incident:
+                incident["Summary"] = "🔄 Narrative queued: Awaiting daily AI quota reset."
+            break
 
-# 6. Save and Push updated data
-if analyzed_count > 0:
-    with open(FILE_PATH, "w", encoding="utf-8") as f:
-        json.dump(incidents, f, indent=4)
-    print("[+] Core structural save complete. Launching sync...")
-    push_to_github(incidents)
-else:
-    print("[*] Telemetry state matches cloud record. Syncing operational baseline...")
-    push_to_github(incidents)
+# =====================================================================
+# 6. Save and Push updated data (This will now ALWAYS execute)
+# =====================================================================
+with open(FILE_PATH, "w", encoding="utf-8") as f:
+    json.dump(incidents, f, indent=4)
+print("[+] Core structural save complete. Launching sync...")
+push_to_github(incidents)
