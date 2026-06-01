@@ -7,7 +7,7 @@ st.title("CHP Live Telemetry Map")
 
 # 1. Update this to your ACTUAL repo URL
 # Ensure this file is public in your GitHub repository
-raw_url = "https://raw.githubusercontent.com/YOUR_USERNAME/chp-hotspots-map/main/live_hotspots.json"
+raw_url = "https://raw.githubusercontent.com/s-odess/chp-hotspots-map/main/live_hotspots.json"
 
 @st.cache_data(ttl=60)
 def get_data():
