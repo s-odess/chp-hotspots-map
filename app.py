@@ -3,7 +3,7 @@ import pandas as pd
 import json
 import os
 
-# Set a wide, professional layout to support columns
+# Set a wide, professional dashboard layout
 st.set_page_config(layout="wide", page_title="California Highway Live Telemetry")
 
 st.title("🚨 Live Highway Incident Telemetry")
@@ -25,18 +25,24 @@ else:
     st.stop()
 
 # 2. Pre-process and clean data for mapping
-if "Latitude" in df.columns and "Longitude" in df.columns:
+map_df = pd.DataFrame()
+if not df.empty and "Latitude" in df.columns and "Longitude" in df.columns:
+    # Build a clean copy containing only valid geographical coordinate matrices
     map_df = df.copy()
-    # Force coordinates to numeric decimals, converting errors or "Unknowns" into NaN
+    
+    # Ensure coordinates match strict floating-point numbers
     map_df['Latitude'] = pd.to_numeric(map_df['Latitude'], errors='coerce')
     map_df['Longitude'] = pd.to_numeric(map_df['Longitude'], errors='coerce')
     
-    # Drop rows that do not have valid GPS numbers
+    # Strip rows missing structural data arrays or holding map zero positions
     map_df = map_df.dropna(subset=['Latitude', 'Longitude'])
-else:
-    map_df = pd.DataFrame(columns=['Latitude', 'Longitude'])
+    map_df = map_df[(map_df['Latitude'] != 0) & (map_df['Longitude'] != 0)]
+    
+    # Generate matching lower-case aliases to guarantee map rendering compatibility
+    map_df['lat'] = map_df['Latitude']
+    map_df['lon'] = map_df['Longitude']
 
-# Create our side-by-side layout (60% Map, 40% News Feed)
+# Create our side-by-side executive column layout
 col1, col2 = st.columns([3, 2])
 
 # ==========================================
@@ -45,13 +51,13 @@ col1, col2 = st.columns([3, 2])
 with col1:
     st.markdown("### 🗺️ Geographic Hotspots")
     if not map_df.empty:
-        # Explicit column parameters override Streamlit's default lowercase strictness
-        st.map(
-            map_df, 
-            latitude="Latitude", 
-            longitude="Longitude", 
-            zoom=6
-        )
+        try:
+            # Render using standard lowercase alignment mappings
+            st.map(map_df, zoom=5)
+        except Exception:
+            # Absolute fallback layout parameter rendering if the container object glitches
+            st.write("Refreshing map parameters...")
+            st.map(map_df, latitude="Latitude", longitude="Longitude", zoom=5)
     else:
         st.info("No active geo-coordinates available in this frame.")
 
@@ -61,23 +67,23 @@ with col1:
 with col2:
     st.markdown("### 📰 Live Dispatch Narratives")
     
-    # Reverse the order so the newest items show up at the top
-    for index, row in df.iloc[::-1].iterrows():
-        # Handle empty/missing summary text gracefully
-        summary_text = row.get("Summary", "Processing AI telemetry analysis...")
-        
-        # If the item currently holds an old execution error string, present it cleanly
-        if str(summary_text).startswith("Error:"):
-            summary_text = "🔄 Queued for next scheduled AI translation cycle."
+    if not df.empty:
+        # Reverse the list so the newest incidents appear at the top of the feed
+        for index, row in df.iloc[::-1].iterrows():
+            summary_text = row.get("Summary", "Processing AI telemetry analysis...")
             
-        location = row.get("Location", "Unknown Location")
-        raw_type = row.get("Incident Type", "Traffic Event")
-        log_time = row.get("Time", "Recent")
+            # Keep layout clean if item is queued for quota reset
+            if str(summary_text).startswith("Error:"):
+                summary_text = "🔄 Queued for next scheduled AI translation cycle."
+                
+            location = row.get("Location", "Unknown Location")
+            raw_type = row.get("Incident Type", "Traffic Event")
+            log_time = row.get("Time", "Recent")
 
-        # Build an independent visual container block for each narrative card
-        with st.container(border=True):
-            st.markdown(f"**📍 {location}**")
-            st.caption(f"⏱️ {log_time} | Raw Code: {raw_type}")
-            
-            # Use the info banner styling to expose the clean narrative text instantly
-            st.info(summary_text)
+            # Render an independent visual container card for every single narrative
+            with st.container(border=True):
+                st.markdown(f"**📍 {location}**")
+                st.caption(f"⏱️ {log_time} | Raw Code: {raw_type}")
+                st.info(summary_text)
+    else:
+        st.info("Waiting for incoming traffic stream logs...")
