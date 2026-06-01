@@ -2,12 +2,10 @@ import streamlit as st
 import pandas as pd
 import requests
 
-st.set_page_config(page_title="CHP Live", layout="wide")
+st.set_page_config(page_title="CHP Live Hotspots", layout="wide")
 st.title("CHP Live Telemetry Map")
 
-# 1. Update this to your ACTUAL repo URL
-# Ensure this file is public in your GitHub repository
-raw_url = "https://raw.githubusercontent.com/s-odess/chp-hotspots-map/refs/heads/main/live_hotspots.json"
+raw_url = "https://raw.githubusercontent.com/s-odess/chp-hotspots-map/main/live_hotspots.json"
 
 @st.cache_data(ttl=60)
 def get_data():
@@ -15,29 +13,31 @@ def get_data():
         response = requests.get(raw_url, timeout=10)
         if response.status_code == 200:
             return response.json()
-        else:
-            return f"Error: Received status code {response.status_code}"
-    except Exception as e:
-        return f"Error: {str(e)}"
+        return None
+    except Exception:
+        return None
 
 data = get_data()
 
-if isinstance(data, str):
-    st.error(f"Failed to load data: {data}")
-    st.write("Check if your JSON file is public and the URL is correct.")
-elif data:
+if data:
     df = pd.DataFrame(data)
     
-    # 2. Convert and Clean
+    # 1. Force data into numeric format (replace errors with NaN)
     df['Latitude'] = pd.to_numeric(df['Latitude'], errors='coerce')
     df['Longitude'] = pd.to_numeric(df['Longitude'], errors='coerce')
+    
+    # 2. Drop any rows where lat/lon could not be converted
     df = df.dropna(subset=['Latitude', 'Longitude'])
     
-    # 3. Rename columns for map
+    # 3. Rename columns exactly as st.map() expects
     df = df.rename(columns={'Latitude': 'lat', 'Longitude': 'lon'})
     
-    # 4. Simple rendering (NO width arguments to avoid crashes)
-    st.map(df)
-    st.dataframe(df[['Incident_No', 'Time', 'Type', 'Summary']])
+    # 4. Final verification: Check if there is data left
+    if not df.empty:
+        st.map(df)
+        st.subheader("Current Dispatch Feed")
+        st.dataframe(df[['Incident_No', 'Time', 'Type', 'Summary']])
+    else:
+        st.error("Data loaded, but no valid Latitude/Longitude coordinates found to map.")
 else:
-    st.warning("No data found in JSON file.")
+    st.warning("Data is currently loading or empty.")
