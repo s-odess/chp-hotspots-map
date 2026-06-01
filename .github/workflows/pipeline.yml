@@ -30,6 +30,9 @@ jobs:
       run: playwright install chromium --with-deps
 
     - name: Run CHP Scraping Engine
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        GITHUB_REPO: "s-odess/chp-hotspots-map"
       run: python chp_hotspots_engine.py
 
     - name: Run Gemini Summary Translation Agent
