@@ -76,17 +76,24 @@ with sync_playwright() as p:
     grid_soup = BeautifulSoup(page.content(), 'html.parser')
     main_table = grid_soup.find('table', {'id': 'gvIncidents'})
     
-    # Grab the table headers so we can match the columns correctly
-    header_row = main_table.find_all('tr')[0]
-    headers = [th.text.strip() for th in header_row.find_all('th')]
-    
     grid_rows = main_table.find_all('tr')[1:] if main_table else []
     
-    # Cache all metadata upfront so the bot doesn't have to re-parse it during the loop
+    # HARDCODED FIX: Grab exact indexes to avoid clicking the 'Details' button (col 0)
     cached_grid_data = []
     for row in grid_rows:
         cols = [td.text.strip() for td in row.find_all('td')]
-        cached_grid_data.append(dict(zip(headers, cols)))
+        if len(cols) >= 4:
+            cached_grid_data.append({
+                "Incident_No": cols[1],
+                "Time": cols[2],
+                "Type": cols[3]
+            })
+        else:
+            cached_grid_data.append({
+                "Incident_No": "Unknown ID",
+                "Time": "Unknown Time",
+                "Type": "Unknown Type"
+            })
     
     all_deep_incidents = []
     
@@ -115,12 +122,20 @@ with sync_playwright() as p:
         
         # Build the final fully mapped record
         all_deep_incidents.append({
-            "Incident_No": row_data.get("No.", "Unknown"),
-            "Time": row_data.get("Time", "Unknown"),
-            "Type": row_data.get("Type", "Unknown"),
+            "Incident_No": row_data.get("Incident_No", "Unknown ID"),
+            "Time": row_data.get("Time", "Unknown Time"),
+            "Type": row_data.get("Type", "Unknown Type"),
             "Latitude": lat,
             "Longitude": lng,
             "Summary": "Pending AI analysis..."
         })
         
         page.go_back()
+        page.wait_for_selector("table#gvIncidents", state="visible")
+        
+    # Final data save and sync
+    with open(FILE_PATH, "w", encoding="utf-8") as f:
+        json.dump(all_deep_incidents, f, indent=4)
+        
+    push_to_github(all_deep_incidents)
+    browser.close()
