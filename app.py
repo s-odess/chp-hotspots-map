@@ -5,7 +5,6 @@ import pandas as pd
 import requests
 import streamlit as st
 
-# 1. Set a clean page layout with a professional icon
 st.set_page_config(page_title="CHP Live Dispatch Tracker", page_icon="🚨", layout="wide")
 
 st.title("🚨 California Highway Patrol Live Telemetry")
@@ -15,43 +14,32 @@ st.caption("Real-time incident mapping and automated dispatch narratives.")
 raw_url = "https://raw.githubusercontent.com/s-odess/chp-hotspots-map/main/live_hotspots.json"
 LOCAL_JSON = "live_hotspots.json"
 
-LAT_ALIASES = ("Latitude", "latitude", "lat", "LAT")
-LON_ALIASES = ("Longitude", "longitude", "lon", "LON")
 
+def standardize_coordinates(frame: pd.DataFrame) -> pd.DataFrame:
+    """
+    live_hotspots.json uses 'Latitude' and 'Longitude' (strings).
+    Force lowercase 'lat' / 'lon' for Streamlit's map.
+    """
+    df = frame.copy()
 
-def _column_lookup(frame: pd.DataFrame, aliases: tuple[str, ...]) -> str | None:
-    """Return the real column name in frame for any alias (exact or case-insensitive)."""
-    lower_to_actual = {str(col).lower(): col for col in frame.columns}
-    for alias in aliases:
-        if alias in frame.columns:
-            return alias
-        match = lower_to_actual.get(alias.lower())
-        if match is not None:
-            return match
-    return None
+    if "Latitude" in df.columns:
+        df["lat"] = pd.to_numeric(df["Latitude"], errors="coerce")
+    elif "latitude" in df.columns:
+        df["lat"] = pd.to_numeric(df["latitude"], errors="coerce")
+    elif "lat" in df.columns:
+        df["lat"] = pd.to_numeric(df["lat"], errors="coerce")
 
+    if "Longitude" in df.columns:
+        df["lon"] = pd.to_numeric(df["Longitude"], errors="coerce")
+    elif "longitude" in df.columns:
+        df["lon"] = pd.to_numeric(df["longitude"], errors="coerce")
+    elif "lon" in df.columns:
+        df["lon"] = pd.to_numeric(df["lon"], errors="coerce")
 
-def _attach_lat_lon(frame: pd.DataFrame) -> pd.DataFrame:
-    """Map any latitude/longitude column variant to normalized lat/lon (no row drops)."""
-    out = frame.copy()
-    lat_col = _column_lookup(out, LAT_ALIASES)
-    lon_col = _column_lookup(out, LON_ALIASES)
-
-    if lat_col is not None:
-        out["lat"] = pd.to_numeric(out[lat_col], errors="coerce")
-    else:
-        out["lat"] = pd.NA
-
-    if lon_col is not None:
-        out["lon"] = pd.to_numeric(out[lon_col], errors="coerce")
-    else:
-        out["lon"] = pd.NA
-
-    return out
+    return df
 
 
 def _fetch_records() -> list:
-    """Load JSON array from GitHub raw URL, then local repo file as fallback."""
     try:
         response = requests.get(raw_url, timeout=10)
         if response.status_code == 200:
@@ -83,21 +71,18 @@ def load_dashboard_data() -> pd.DataFrame:
     if df.empty:
         return df
 
-    df = _attach_lat_lon(df)
-    # Keep every incident row for the feed/summaries; map uses lat/lon where present.
+    df = standardize_coordinates(df)
+    df = df.dropna(subset=["lat", "lon"])
     return df.reset_index(drop=True)
 
 
 df = load_dashboard_data()
 
 if not df.empty:
-    # 2. THE MAP: Strip away PyDeck complexity.
-    # We feed st.map ONLY the coordinates so it cannot get confused or look blank.
-    st.map(df[["lat", "lon"]], height=500)
+    st.map(df, height=500)
 
     st.markdown("---")
 
-    # 3. DASHBOARD FEED LAYOUT
     col1, col2 = st.columns([3, 2])
 
     with col1:
@@ -109,16 +94,14 @@ if not df.empty:
         st.subheader("🤖 AI Dispatch Summaries")
 
         if "Summary" in df.columns:
-            for idx, row in df.iterrows():
+            for _, row in df.iterrows():
                 raw_summary = row["Summary"]
 
-                # UI Clean up: Swap the ugly "Pending" string for a clean loading state
                 if "Pending AI analysis" in raw_summary:
                     formatted_summary = "⏳ *Analysis queued. Refreshing on next automated cycle...*"
                 else:
                     formatted_summary = raw_summary
 
-                # Render clean cards instead of technical blocks
                 st.markdown(f"**{row.get('Time', 'N/A')} — {row.get('Type', 'Incident')}**")
                 st.markdown(formatted_summary)
                 st.markdown(" ", unsafe_allow_html=True)
