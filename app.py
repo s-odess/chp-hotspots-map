@@ -5,39 +5,47 @@ import requests
 st.set_page_config(page_title="CHP Live Hotspots", layout="wide")
 st.title("CHP Live Telemetry Map")
 
+# Update with your actual GitHub username
 raw_url = "https://raw.githubusercontent.com/s-odess/chp-hotspots-map/main/live_hotspots.json"
 
 @st.cache_data(ttl=60)
-def get_data():
+def get_clean_data():
     try:
         response = requests.get(raw_url, timeout=10)
         if response.status_code == 200:
-            return response.json()
+            df = pd.DataFrame(response.json())
+            
+            # Clean and isolate coordinates
+            df['lat'] = pd.to_numeric(df['Latitude'], errors='coerce')
+            df['lon'] = pd.to_numeric(df['Longitude'], errors='coerce')
+            df = df.dropna(subset=['lat', 'lon'])
+            
+            # Cursor Fix #1: Clear the internal pandas index to prevent mapping drops
+            df = df.reset_index(drop=True)
+            return df
         return None
     except Exception:
         return None
 
-data = get_data()
+df = get_clean_data()
 
-if data:
-    df = pd.DataFrame(data)
+if df is not None and not df.empty:
+    # Cursor Fix #2: Map is placed completely outside columns at the top level
+    # Cursor Fix #3: Explicitly define parameters and set a locked height
+    st.map(df, latitude='lat', longitude='lon', height=500)
     
-    # 1. Force data into numeric format (replace errors with NaN)
-    df['Latitude'] = pd.to_numeric(df['Latitude'], errors='coerce')
-    df['Longitude'] = pd.to_numeric(df['Longitude'], errors='coerce')
+    st.markdown("---")
     
-    # 2. Drop any rows where lat/lon could not be converted
-    df = df.dropna(subset=['Latitude', 'Longitude'])
+    # Place your table and text side-by-side BELOW the full-width map
+    col1, col2 = st.columns([2, 1])
     
-    # 3. Rename columns exactly as st.map() expects
-    df = df.rename(columns={'Latitude': 'lat', 'Longitude': 'lon'})
-    
-    # 4. Final verification: Check if there is data left
-    if not df.empty:
-        st.map(df)
+    with col1:
         st.subheader("Current Dispatch Feed")
-        st.dataframe(df[['Incident_No', 'Time', 'Type', 'Summary']])
-    else:
-        st.error("Data loaded, but no valid Latitude/Longitude coordinates found to map.")
+        st.dataframe(df[['Incident_No', 'Time', 'Type']], width=None)
+        
+    with col2:
+        st.subheader("Incident Summaries")
+        for idx, row in df.iterrows():
+            st.write(f"**{row['Time']} - {row['Type']}:** {row['Summary']}")
 else:
-    st.warning("Data is currently loading or empty.")
+    st.warning("Data pipeline active. Waiting for clean coordinate data from the scraper...")
