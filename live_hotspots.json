@@ -1,114 +1,114 @@
 [
     {
-        "Incident_No": "1450",
-        "Time": "2:19 PM",
-        "Type": "Report of Fire",
-        "Latitude": "34.495919",
-        "Longitude": "-118.623691",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "1407",
-        "Time": "2:02 PM",
+        "Incident_No": "0085",
+        "Time": "3:32 AM",
         "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "34.064017",
-        "Longitude": "-117.811990",
+        "Latitude": "33.916749",
+        "Longitude": "-117.438709",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0712",
-        "Time": "2:56 PM",
+        "Incident_No": "0278",
+        "Time": "11:55 PM",
         "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "38.631872",
-        "Longitude": "-121.397292",
+        "Latitude": "33.606927",
+        "Longitude": "-114.606469",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0237",
-        "Time": "1:51 PM",
+        "Incident_No": "0006",
+        "Time": "1:13 AM",
         "Type": "Trfc Collision-No Inj",
-        "Latitude": "37.790294",
-        "Longitude": "-121.291066",
+        "Latitude": "40.669534",
+        "Longitude": "-122.645845",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0353",
-        "Time": "2:20 PM",
-        "Type": "Trfc Collision-Major Inj",
-        "Latitude": "37.448731",
-        "Longitude": "-120.797104",
+        "Incident_No": "0243",
+        "Time": "4:30 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "33.920578",
+        "Longitude": "-118.082594",
         "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0095",
-        "Time": "2:06 PM",
+        "Time": "3:56 AM",
         "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "34.065347",
-        "Longitude": "-117.806521",
+        "Latitude": "34.324997",
+        "Longitude": "-117.421171",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0101",
-        "Time": "2:37 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Latitude": "40.809553",
-        "Longitude": "-124.114063",
+        "Incident_No": "0200",
+        "Time": "4:17 AM",
+        "Type": "Car Fire",
+        "Latitude": "37.959772",
+        "Longitude": "-122.330645",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0069",
-        "Time": "2:59 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Latitude": "40.315170",
-        "Longitude": "-120.992914",
+        "Incident_No": "0018",
+        "Time": "2:11 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "37.851669",
+        "Longitude": "-121.282931",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0122",
-        "Time": "3:25 PM",
+        "Incident_No": "0029",
+        "Time": "4:10 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "34.324997",
+        "Longitude": "-117.421171",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0054",
+        "Time": "4:11 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "32.892456",
+        "Longitude": "-117.227358",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0102",
+        "Time": "3:58 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "34.140666",
+        "Longitude": "-117.302345",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0026",
+        "Time": "4:35 AM",
+        "Type": "Trfc Collision-No Inj",
+        "Latitude": "41.352778",
+        "Longitude": "-122.353889",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0171",
+        "Time": "3:16 AM",
+        "Type": "Hit and Run No Injuries",
+        "Latitude": "37.822692",
+        "Longitude": "-122.320100",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0092",
+        "Time": "3:52 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "33.829244",
+        "Longitude": "-117.460350",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0045",
+        "Time": "3:54 AM",
         "Type": "Trfc Collision-Unkn Inj",
-        "Latitude": "33.873572",
-        "Longitude": "-118.216817",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "1704",
-        "Time": "3:16 PM",
-        "Type": "Car Fire",
-        "Latitude": "37.928275",
-        "Longitude": "-122.322664",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "1657",
-        "Time": "3:24 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "33.873456",
-        "Longitude": "-118.206449",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0308",
-        "Time": "3:17 PM",
-        "Type": "Car Fire",
-        "Latitude": "37.928275",
-        "Longitude": "-122.322664",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0358",
-        "Time": "2:30 PM",
-        "Type": "Report of Fire",
-        "Latitude": "37.405569",
-        "Longitude": "-120.128831",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "1332",
-        "Time": "1:32 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "34.103929",
-        "Longitude": "-118.592709",
+        "Latitude": "37.489254",
+        "Longitude": "-120.868035",
         "Summary": "Pending AI analysis..."
     }
 ]
