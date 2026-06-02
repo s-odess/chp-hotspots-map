@@ -6,25 +6,25 @@ import requests
 from dotenv import load_dotenv
 from google import genai
 
-# 1. Flexible Environment Loading (Handles local file or direct cloud RAM environment)
 if os.path.exists(".env.txt"):
     load_dotenv(".env.txt")
 else:
     load_dotenv()
 
-# Verify variable integrity before proceeding
 if not os.getenv("GEMINI_API_KEY"):
     print("[-] Structural Error: GEMINI_API_KEY is missing from environment.")
     exit(1)
 
-# Auto-detects GEMINI_API_KEY natively from system environment variables
 client = genai.Client()
 
 FILE_PATH = "live_hotspots.json"
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_REPO = os.getenv("GITHUB_REPO")
 
-# 2. Robust Data Loading Guardrail
+COORD_KEYS = {
+    "Latitude", "Longitude", "latitude", "longitude", "lat", "lon", "Summary"
+}
+
 incidents = []
 if os.path.exists(FILE_PATH) and os.path.getsize(FILE_PATH) > 0:
     try:
@@ -38,42 +38,67 @@ else:
     print(f"[!] Warning: {FILE_PATH} not found. Initializing empty array.")
     incidents = []
 
-# 3. Filtering guardrail
+
 def is_valid(incident):
     return incident.get("Latitude") != "Unknown" and incident.get("Longitude") != "Unknown"
 
-# 4. Triage function with strict error escalation
+
+def narrative_context(incident):
+    """Send only human-relevant dispatch fields — never raw coordinates."""
+    return {k: v for k, v in incident.items() if k not in COORD_KEYS}
+
+
+def summary_is_finished(summary):
+    if not summary or summary == "Pending AI analysis...":
+        return False
+    if summary.startswith("Error:"):
+        return False
+    upper = summary.upper()
+    if "NEWS DESK" in upper or "NEWS DESK ALERT" in upper:
+        return False
+    return True
+
+
 def get_triage(incident, retries=3):
-    prompt = f"""
-    Summarize this incident for a news desk. 
-    IMPORTANT: Translate all technical police codes (like 23103, 1141, etc.) into plain, understandable English (e.g., 'Reckless Driving', 'Traffic Collision').
-    Keep it concise and punchy.
-    Incident Data: {incident}
-    """
+    context = narrative_context(incident)
+    prompt = f"""You are a calm, human-friendly traffic narrator helping everyday drivers understand CHP highway incidents.
+
+Your job: turn raw dispatch information into a short, conversational story (2–4 sentences) that explains what is happening on the road and what drivers might notice.
+
+Rules:
+- Write in plain, natural English — like you're telling a friend, not reading a police blotter.
+- Translate police codes and jargon into everyday language (e.g., 23103 → reckless driving, 118 → traffic collision).
+- Focus on the incident type, location description (if provided), lane impacts, and anything useful for drivers.
+- Do NOT use headlines, labels, or templates (no "NEWS DESK ALERT", no bullet lists, no ALL CAPS shouting).
+- Do NOT include latitude, longitude, GPS numbers, or coordinate pairs.
+- Do NOT repeat incident numbers or metadata unless it helps clarity.
+
+Dispatch record:
+{json.dumps(context, indent=2)}
+"""
     for attempt in range(retries):
         try:
             response = client.models.generate_content(
-                model='gemini-2.5-flash',
-                contents=prompt
+                model="gemini-2.5-flash",
+                contents=prompt,
             )
-            return response.text
+            text = (response.text or "").strip()
+            return text
         except Exception as e:
             error_msg = str(e)
             print(f"[!] API Exception encountered: {error_msg}")
-            
-            # Catch transient network rate throttles or server busy states
+
             if "503" in error_msg or "RESOURCE_EXHAUSTED" in error_msg or "429" in error_msg:
                 wait = (attempt + 1) * 15
                 print(f"[!] Rate limit or server load. Retrying in {wait}s...")
                 time.sleep(wait)
             else:
-                # If it's a key configuration or authentication error, stop immediately!
                 raise e
-                
+
     raise RuntimeError("API failed to respond after multiple retries.")
 
+
 def push_to_github(data_list):
-    """Securely commits and pushes data directly back into the repository timeline."""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         print("[-] Skipping Cloud Sync: Missing Git environment tokens.")
         return
@@ -82,7 +107,7 @@ def push_to_github(data_list):
     api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     headers = {
         "Authorization": f"token {GITHUB_TOKEN}",
-        "Accept": "application/vnd.github.v3+json"
+        "Accept": "application/vnd.github.v3+json",
     }
 
     json_content = json.dumps(data_list, indent=4)
@@ -95,7 +120,7 @@ def push_to_github(data_list):
 
     payload = {
         "message": "Pipeline Auto-Update: Synchronizing telemetry layer data feeds",
-        "content": encoded_content
+        "content": encoded_content,
     }
     if sha:
         payload["sha"] = sha
@@ -106,51 +131,36 @@ def push_to_github(data_list):
     else:
         print(f"[-] Data push rejected: {put_response.status_code} - {put_response.text}")
 
-# =====================================================================
-# 5. Process incidents (Graceful Quota-Insulated Loop)
-# =====================================================================
-print(f"[+] Commencing record evaluation loop...")
+
+print("[+] Commencing record evaluation loop...")
 analyzed_count = 0
-max_per_run = 3  # STRICT FREE TIER GUARDRAIL: Only allow 3 AI requests per execution
+max_per_run = 3
 
 for i, incident in enumerate(incidents):
-    # If we have reached our free-tier allocation for this run, stop processing new items
     if analyzed_count >= max_per_run:
         print(f"[!] Reached maximum limit of {max_per_run} requests for this run. Saving quota.")
         break
 
-    # Clear out previous error strings so the engine can retry them cleanly
     if "Summary" in incident and incident["Summary"].startswith("Error:"):
         del incident["Summary"]
 
-    # Skip only finished summaries; scraper seeds "Pending AI analysis..."
-    summary = incident.get("Summary", "")
-    if summary and summary != "Pending AI analysis..." and not summary.startswith("Error:"):
+    if summary_is_finished(incident.get("Summary", "")):
         continue
-        
+
     if is_valid(incident):
         print(f"[*] Dispatching data packet to Gemini Agent (Incident {i+1}/{len(incidents)})...")
         try:
-            summary = get_triage(incident)
-            incident["Summary"] = summary
+            incident["Summary"] = get_triage(incident)
             analyzed_count += 1
-            print(f"[+] Step successful. Summary verified.")
-            time.sleep(4.5)  # Safe cloud pacing
+            print("[+] Step successful. Summary verified.")
+            time.sleep(4.5)
         except Exception as core_error:
-            # DIAGNOSTIC RECOVERY PATCH: 
-            # If the API key is maxed out, do NOT crash the script. 
-            # Populate a clean UI string and break the loop so we can still sync coordinates!
             print(f"[!] AI Pipeline Throttled: {core_error}")
             print("[*] Gracefully halting AI summaries. Advancing data matrix to GitHub sync layer...")
-            
-            # Label this item cleanly so the UI knows it's waiting
             if "Summary" not in incident:
                 incident["Summary"] = "🔄 Narrative queued: Awaiting daily AI quota reset."
             break
 
-# =====================================================================
-# 6. Save and Push updated data (This will now ALWAYS execute)
-# =====================================================================
 with open(FILE_PATH, "w", encoding="utf-8") as f:
     json.dump(incidents, f, indent=4)
 print("[+] Core structural save complete. Launching sync...")
