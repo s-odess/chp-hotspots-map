@@ -5,7 +5,7 @@
         "Type": "Trfc Collision-Unkn Inj",
         "Latitude": "33.614555",
         "Longitude": "-116.415242",
-        "Summary": "Around 2:08 PM, CHP is responding to a traffic collision. While we don't have specifics on the location or any lane impacts just yet, it's been reported as a car crash with unknown injuries."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1704",
@@ -13,7 +13,15 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Latitude": "34.430448",
         "Longitude": "-118.588932",
-        "Summary": "It's 2:39 PM, and we've just received a report about a traffic collision. Emergency services are currently on their way to the scene. While we don't have details on the exact location or any specific lane impacts right now, drivers should stay alert and be prepared for potential slowdowns."
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1785",
+        "Time": "3:25 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "38.299835",
+        "Longitude": "-122.034061",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1723",
@@ -21,7 +29,7 @@
         "Type": "Traffic Hazard",
         "Latitude": "34.023139",
         "Longitude": "-117.811667",
-        "Summary": "Around 2:46 PM, CHP reported a traffic hazard. This means there might be something in the road or an issue that could affect traffic flow, so drivers should keep an eye out and be prepared for potential slowdowns."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0547",
@@ -40,19 +48,19 @@
         "Summary": "Pending AI analysis..."
     },
     {
+        "Incident_No": "0281",
+        "Time": "3:27 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "38.299835",
+        "Longitude": "-122.034061",
+        "Summary": "Pending AI analysis..."
+    },
+    {
         "Incident_No": "0149",
         "Time": "12:59 PM",
         "Type": "Trfc Collision-Minor Inj",
         "Latitude": "39.198591",
         "Longitude": "-121.316225",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "1785",
-        "Time": "3:25 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "38.299835",
-        "Longitude": "-122.034061",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -80,14 +88,6 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "1588",
-        "Time": "2:05 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "34.055739",
-        "Longitude": "-118.452239",
-        "Summary": "Pending AI analysis..."
-    },
-    {
         "Incident_No": "0108",
         "Time": "2:11 PM",
         "Type": "Trfc Collision-No Inj",
@@ -104,11 +104,11 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "1593",
-        "Time": "2:26 PM",
-        "Type": "Trfc Collision-No Inj",
-        "Latitude": "37.671437",
-        "Longitude": "-122.121771",
+        "Incident_No": "1755",
+        "Time": "2:54 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "34.021960",
+        "Longitude": "-117.813129",
         "Summary": "Pending AI analysis..."
     }
 ]
