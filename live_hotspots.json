@@ -5,7 +5,7 @@
         "Type": "Trfc Collision-Unkn Inj",
         "Latitude": "33.614555",
         "Longitude": "-116.415242",
-        "Summary": "**NEWS DESK ALERT:**\n\nEmergency services are responding to a **traffic collision with unknown injuries** (Incident #0199) reported at 2:08 PM. The incident occurred at coordinates 33.614555, -116.415242. Further details are pending."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1704",
@@ -13,15 +13,7 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Latitude": "34.430448",
         "Longitude": "-118.588932",
-        "Summary": "**NEWS DESK ALERT:**\n\nA traffic collision has been reported at 2:39 PM this afternoon. Emergency medical services are currently en route to the scene, located at coordinates 34.430448, -118.588932. Details regarding the incident, including injuries or vehicles involved, are pending."
-    },
-    {
-        "Incident_No": "0507",
-        "Time": "1:17 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "32.839902",
-        "Longitude": "-116.912924",
-        "Summary": "**NEWS ALERT: Traffic Collision Reported**\n\nIncident #0507: At 1:17 PM, emergency responders were dispatched to a traffic collision at approximately 32.839902, -116.912924. Units are currently en route to the scene. Further details will follow."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0547",
@@ -29,6 +21,14 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Latitude": "32.954006",
         "Longitude": "-117.189656",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0507",
+        "Time": "1:17 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "32.839902",
+        "Longitude": "-116.912924",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -96,19 +96,19 @@
         "Summary": "Pending AI analysis..."
     },
     {
+        "Incident_No": "0659",
+        "Time": "2:59 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Latitude": "38.564927",
+        "Longitude": "-121.767934",
+        "Summary": "Pending AI analysis..."
+    },
+    {
         "Incident_No": "1484",
         "Time": "1:45 PM",
         "Type": "Trfc Collision-Unkn Inj",
         "Latitude": "37.701507",
         "Longitude": "-121.903244",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0533",
-        "Time": "12:45 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "38.496312",
-        "Longitude": "-121.334975",
         "Summary": "Pending AI analysis..."
     }
 ]
