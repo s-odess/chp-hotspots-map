@@ -123,8 +123,9 @@ for i, incident in enumerate(incidents):
     if "Summary" in incident and incident["Summary"].startswith("Error:"):
         del incident["Summary"]
 
-    # Skip items that already have a successful summary
-    if "Summary" in incident:
+    # Skip only finished summaries; scraper seeds "Pending AI analysis..."
+    summary = incident.get("Summary", "")
+    if summary and summary != "Pending AI analysis..." and not summary.startswith("Error:"):
         continue
         
     if is_valid(incident):
