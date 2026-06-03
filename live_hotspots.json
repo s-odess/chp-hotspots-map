@@ -6,33 +6,6 @@
         "Location": "71500-71529 Sr74",
         "Latitude": "33.614555",
         "Longitude": "-116.415242",
-        "Summary": "Heads up on SR-74! Around the 71500-71529 stretch, emergency crews are responding to a traffic collision with currently unknown injuries. Drivers in the area might notice some delays and should proceed with extra caution."
-    },
-    {
-        "Incident_No": "0547",
-        "Time": "1:47 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr56 W / Carmel Valley Eo",
-        "Latitude": "32.954006",
-        "Longitude": "-117.189656",
-        "Summary": "Around 1:47 PM, there's been a traffic collision reported on Sr56 West, right near the Carmel Valley exit. CHP units are currently on their way to the scene to assist. Drivers heading through this area should anticipate potential slowdowns and be prepared for some delays."
-    },
-    {
-        "Incident_No": "0311",
-        "Time": "5:05 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "S Cardinal Ave / E Main St",
-        "Latitude": "37.958317",
-        "Longitude": "-121.219344",
-        "Summary": "Heads up for those driving around S Cardinal Ave and E Main St this evening. We're seeing reports of a traffic collision that occurred around 5:05 PM in that intersection. Expect some potential delays and be mindful of emergency personnel who may be on scene."
-    },
-    {
-        "Incident_No": "1961",
-        "Time": "4:21 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Location": "I680 S / PARISH RD ONR",
-        "Latitude": "38.113217",
-        "Longitude": "-122.106335",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -45,12 +18,21 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0681",
-        "Time": "3:34 PM",
-        "Type": "Trfc Collision-Major Inj",
-        "Location": "I5 S / MILE OF CARS SO (24TH_MARINA)",
-        "Latitude": "32.656544",
-        "Longitude": "-117.106673",
+        "Incident_No": "0311",
+        "Time": "5:05 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "S Cardinal Ave / E Main St",
+        "Latitude": "37.958317",
+        "Longitude": "-121.219344",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0547",
+        "Time": "1:47 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Sr56 W / Carmel Valley Eo",
+        "Latitude": "32.954006",
+        "Longitude": "-117.189656",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -60,6 +42,24 @@
         "Location": "I15 N / Ted Williams Pkwy Ofr",
         "Latitude": "32.956458",
         "Longitude": "-117.100263",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1961",
+        "Time": "4:21 PM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "I680 S / PARISH RD ONR",
+        "Latitude": "38.113217",
+        "Longitude": "-122.106335",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0681",
+        "Time": "3:34 PM",
+        "Type": "Trfc Collision-Major Inj",
+        "Location": "I5 S / MILE OF CARS SO (24TH_MARINA)",
+        "Latitude": "32.656544",
+        "Longitude": "-117.106673",
         "Summary": "Pending AI analysis..."
     },
     {
