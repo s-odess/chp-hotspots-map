@@ -25,6 +25,17 @@ COORD_KEYS = {
     "Latitude", "Longitude", "latitude", "longitude", "lat", "lon", "Summary"
 }
 
+LOCATION_RETRY_PHRASES = (
+    "don't have the specific location details",
+    "don't have specifics on the location",
+    "do not have the specific location details",
+    "do not have specifics on the location",
+    "lack location specifics",
+    "location name is missing",
+    "location is missing",
+    "no text-based highway",
+)
+
 incidents = []
 if os.path.exists(FILE_PATH) and os.path.getsize(FILE_PATH) > 0:
     try:
@@ -43,9 +54,24 @@ def is_valid(incident):
     return incident.get("Latitude") != "Unknown" and incident.get("Longitude") != "Unknown"
 
 
+def get_location_string(incident):
+    for key in ("Location", "location", "Area", "area"):
+        val = incident.get(key, "")
+        if val and str(val).strip().lower() not in ("unknown", "n/a", "", "details"):
+            return str(val).strip()
+    return ""
+
+
 def narrative_context(incident):
-    """Send only human-relevant dispatch fields — never raw coordinates."""
+    """Human-relevant dispatch fields for Gemini — never raw coordinates."""
     return {k: v for k, v in incident.items() if k not in COORD_KEYS}
+
+
+def summary_needs_retry(summary):
+    if not summary:
+        return False
+    lower = summary.lower()
+    return any(phrase in lower for phrase in LOCATION_RETRY_PHRASES)
 
 
 def summary_is_finished(summary):
@@ -56,21 +82,41 @@ def summary_is_finished(summary):
     upper = summary.upper()
     if "NEWS DESK" in upper or "NEWS DESK ALERT" in upper:
         return False
+    if summary_needs_retry(summary):
+        return False
     return True
 
 
 def get_triage(incident, retries=3):
     context = narrative_context(incident)
+    location = get_location_string(incident)
+
+    if location:
+        location_instruction = (
+            f'You have been provided with the Location: "{location}" '
+            "(e.g., a highway, intersection, or landmark). "
+            "You MUST weave this location naturally into your narrative so drivers "
+            "know exactly where the incident is. Do not say location details are missing."
+        )
+    else:
+        location_instruction = (
+            "No street or highway name was captured for this record. "
+            "Describe the hazard and what drivers should do without mentioning missing location data."
+        )
+
     prompt = f"""You are a calm, human-friendly traffic narrator helping everyday drivers understand CHP highway incidents.
 
 Your job: turn raw dispatch information into a short, conversational story (2–4 sentences) that explains what is happening on the road and what drivers might notice.
 
+{location_instruction}
+
 Rules:
 - Write in plain, natural English — like you're telling a friend, not reading a police blotter.
 - Translate police codes and jargon into everyday language (e.g., 23103 → reckless driving, 118 → traffic collision).
-- Focus on the incident type, location description (if provided), lane impacts, and anything useful for drivers.
+- When Location is provided, name it early in the story (e.g., "On I-5 north near ...").
 - Do NOT use headlines, labels, or templates (no "NEWS DESK ALERT", no bullet lists, no ALL CAPS shouting).
 - Do NOT include latitude, longitude, GPS numbers, or coordinate pairs.
+- Do NOT say you lack location specifics, that location details are missing, or that you don't have the specific location.
 - Do NOT repeat incident numbers or metadata unless it helps clarity.
 
 Dispatch record:
@@ -144,11 +190,16 @@ for i, incident in enumerate(incidents):
     if "Summary" in incident and incident["Summary"].startswith("Error:"):
         del incident["Summary"]
 
-    if summary_is_finished(incident.get("Summary", "")):
+    summary = incident.get("Summary", "")
+    if summary_is_finished(summary):
         continue
 
+    if summary_needs_retry(summary):
+        print(f"[*] Re-processing summary with missing-location wording (incident {i+1})...")
+
     if is_valid(incident):
-        print(f"[*] Dispatching data packet to Gemini Agent (Incident {i+1}/{len(incidents)})...")
+        loc = get_location_string(incident)
+        print(f"[*] Gemini Agent (Incident {i+1}/{len(incidents)}) Location={loc or 'NONE'}...")
         try:
             incident["Summary"] = get_triage(incident)
             analyzed_count += 1
