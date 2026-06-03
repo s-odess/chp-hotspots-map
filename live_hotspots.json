@@ -3,112 +3,126 @@
         "Incident_No": "0199",
         "Time": "2:08 PM",
         "Type": "Trfc Collision-Unkn Inj",
+        "Location": "71500-71529 Sr74",
         "Latitude": "33.614555",
         "Longitude": "-116.415242",
-        "Summary": "Heads up, drivers: we're seeing reports of a traffic collision that came in just after 2 PM this afternoon. While we don't have the specific location details for this particular incident right now, it's a good reminder to stay extra vigilant on the roadways. Always be prepared for potential slowdowns and emergency personnel if you spot any unusual activity."
-    },
-    {
-        "Incident_No": "1704",
-        "Time": "2:39 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "34.430448",
-        "Longitude": "-118.588932",
-        "Summary": "Alright everyone, we're seeing reports of a traffic collision. A CHP officer is en route to the scene right now to check things out. Please be mindful and watch for any emergency vehicles if you're out driving."
-    },
-    {
-        "Incident_No": "1785",
-        "Time": "3:25 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "38.299835",
-        "Longitude": "-122.034061",
-        "Summary": "Around 3:25 PM, CHP received a report of a traffic collision, and officers are now on their way to the scene. Drivers heading through that area should be aware and watch for emergency personnel. You might notice some slowing traffic as they respond."
-    },
-    {
-        "Incident_No": "1723",
-        "Time": "2:46 PM",
-        "Type": "Traffic Hazard",
-        "Latitude": "34.023139",
-        "Longitude": "-117.811667",
         "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0547",
         "Time": "1:47 PM",
         "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Sr56 W / Carmel Valley Eo",
         "Latitude": "32.954006",
         "Longitude": "-117.189656",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0507",
-        "Time": "1:17 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "32.839902",
-        "Longitude": "-116.912924",
+        "Incident_No": "0311",
+        "Time": "5:05 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "S Cardinal Ave / E Main St",
+        "Latitude": "37.958317",
+        "Longitude": "-121.219344",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0281",
-        "Time": "3:27 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "38.299835",
-        "Longitude": "-122.034061",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0149",
-        "Time": "12:59 PM",
+        "Incident_No": "1961",
+        "Time": "4:21 PM",
         "Type": "Trfc Collision-Minor Inj",
-        "Latitude": "39.198591",
-        "Longitude": "-121.316225",
+        "Location": "I680 S / PARISH RD ONR",
+        "Latitude": "38.113217",
+        "Longitude": "-122.106335",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0106",
-        "Time": "2:45 PM",
+        "Incident_No": "0804",
+        "Time": "4:58 PM",
         "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "34.023139",
-        "Longitude": "-117.811667",
+        "Location": "I15 N / Ted Williams Pkwy Ofr",
+        "Latitude": "32.956458",
+        "Longitude": "-117.100263",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0086",
-        "Time": "1:20 PM",
+        "Incident_No": "0681",
+        "Time": "3:34 PM",
+        "Type": "Trfc Collision-Major Inj",
+        "Location": "I5 S / MILE OF CARS SO (24TH_MARINA)",
+        "Latitude": "32.656544",
+        "Longitude": "-117.106673",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0371",
+        "Time": "5:01 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "I15 N / Ted Williams Pkwy Ofr",
+        "Latitude": "32.956458",
+        "Longitude": "-117.100263",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0111",
+        "Time": "3:57 PM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "US395 / SAND SHED",
+        "Latitude": "37.498186",
+        "Longitude": "-118.582309",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0771",
+        "Time": "4:33 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Sr51 N / Exposition Blvd",
+        "Latitude": "38.596914",
+        "Longitude": "-121.443445",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "2076",
+        "Time": "4:55 PM",
         "Type": "Report of Fire",
-        "Latitude": "36.210011",
-        "Longitude": "-117.979329",
+        "Location": "Sr4 E / Loveridge Rd Ofr",
+        "Latitude": "38.012821",
+        "Longitude": "-121.872431",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0120",
-        "Time": "2:12 PM",
-        "Type": "Trfc Collision-No Inj",
-        "Latitude": "39.931828",
-        "Longitude": "-122.033082",
+        "Incident_No": "0387",
+        "Time": "4:56 PM",
+        "Type": "Traffic Hazard",
+        "Location": "Us101 At Fairview Ave/mtry Pen/sanborn",
+        "Latitude": "36.664081",
+        "Longitude": "-121.624760",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0108",
-        "Time": "2:11 PM",
-        "Type": "Trfc Collision-No Inj",
-        "Latitude": "39.003452",
-        "Longitude": "-123.119452",
+        "Incident_No": "0531",
+        "Time": "4:21 PM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "0 Jensen Ave Onr",
+        "Latitude": "36.704599",
+        "Longitude": "-119.772097",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "1665",
-        "Time": "2:55 PM",
-        "Type": "Trfc Collision-No Inj",
-        "Latitude": "37.418813",
-        "Longitude": "-121.968915",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "1755",
-        "Time": "2:54 PM",
+        "Incident_No": "0780",
+        "Time": "4:46 PM",
         "Type": "Trfc Collision-1141 Enrt",
-        "Latitude": "34.021960",
-        "Longitude": "-117.813129",
+        "Location": "I5 S / Sr15 No",
+        "Latitude": "32.694322",
+        "Longitude": "-117.125597",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0146",
+        "Time": "3:01 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Tepusquet Rd / Colson Canyon Rd",
+        "Latitude": "34.923784",
+        "Longitude": "-120.219950",
         "Summary": "Pending AI analysis..."
     }
 ]
