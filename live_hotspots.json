@@ -6,7 +6,7 @@
         "Location": "71500-71529 Sr74",
         "Latitude": "33.614555",
         "Longitude": "-116.415242",
-        "Summary": "Good afternoon, drivers. If you're out on State Route 74, be aware that there's been a traffic collision around the 71500 to 71529 area. You might encounter some delays and see emergency crews working on the scene as they respond to this incident."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0804",
@@ -15,7 +15,7 @@
         "Location": "I15 N / Ted Williams Pkwy Ofr",
         "Latitude": "32.956458",
         "Longitude": "-117.100263",
-        "Summary": "Hello drivers, just a heads-up around 4:58 PM: we're seeing reports of a traffic collision on I-15 North near the Ted Williams Parkway off-ramp. Emergency responders are currently on their way to the scene. You'll likely encounter some slowing traffic and potential delays if you're traveling through this area."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0311",
@@ -24,7 +24,7 @@
         "Location": "S Cardinal Ave / E Main St",
         "Latitude": "37.958317",
         "Longitude": "-121.219344",
-        "Summary": "Good evening, drivers. If you're heading towards S Cardinal Ave and E Main St, please be aware of a traffic collision that occurred around 5:05 PM. Emergency crews are on scene responding to the incident, which currently involves unknown injuries. You can expect to see responders in the area, so please drive carefully and be prepared for potential delays."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0371",
@@ -42,6 +42,15 @@
         "Location": "Sr56 W / Carmel Valley Eo",
         "Latitude": "32.954006",
         "Longitude": "-117.189656",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1357",
+        "Time": "12:38 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "I210 E / Huntington Dr Ofr",
+        "Latitude": "34.142933",
+        "Longitude": "-118.021097",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -114,15 +123,6 @@
         "Location": "I5 S / Sr15 No",
         "Latitude": "32.694322",
         "Longitude": "-117.125597",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "2071",
-        "Time": "4:54 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "I880 S / Tasman Dr Ofr",
-        "Latitude": "37.423380",
-        "Longitude": "-121.915812",
         "Summary": "Pending AI analysis..."
     }
 ]
