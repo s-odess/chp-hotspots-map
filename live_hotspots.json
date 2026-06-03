@@ -6,7 +6,7 @@
         "Location": "71500-71529 Sr74",
         "Latitude": "33.614555",
         "Longitude": "-116.415242",
-        "Summary": "Hello drivers, we're seeing a traffic collision on SR-74, specifically within the 71500 to 71529 block. This incident, reported around 2:08 PM, involves injuries, though their extent isn't yet known. Please proceed with extra caution and expect some delays if you're traveling through that area."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0804",
@@ -15,7 +15,7 @@
         "Location": "I15 N / Ted Williams Pkwy Ofr",
         "Latitude": "32.956458",
         "Longitude": "-117.100263",
-        "Summary": "Good afternoon. Around 4:58 PM, a traffic collision has been reported on I-15 North, specifically near the Ted Williams Parkway off-ramp. Emergency services are currently on their way to the scene to assist. Drivers can expect to see some slowdowns and potential lane blockages in that area, so please proceed with caution."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0311",
@@ -24,15 +24,6 @@
         "Location": "S Cardinal Ave / E Main St",
         "Latitude": "37.958317",
         "Longitude": "-121.219344",
-        "Summary": "Heads up if you're traveling near S Cardinal Avenue and East Main Street this evening. There's been a traffic collision reported, and it sounds like there might be injuries involved. You'll likely see emergency vehicles and should anticipate some delays as crews work to clear the scene."
-    },
-    {
-        "Incident_No": "0547",
-        "Time": "1:47 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr56 W / Carmel Valley Eo",
-        "Latitude": "32.954006",
-        "Longitude": "-117.189656",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -42,6 +33,15 @@
         "Location": "I15 N / Ted Williams Pkwy Ofr",
         "Latitude": "32.956458",
         "Longitude": "-117.100263",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0547",
+        "Time": "1:47 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Sr56 W / Carmel Valley Eo",
+        "Latitude": "32.954006",
+        "Longitude": "-117.189656",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -117,12 +117,12 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0146",
-        "Time": "3:01 PM",
+        "Incident_No": "2071",
+        "Time": "4:54 PM",
         "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Tepusquet Rd / Colson Canyon Rd",
-        "Latitude": "34.923784",
-        "Longitude": "-120.219950",
+        "Location": "I880 S / Tasman Dr Ofr",
+        "Latitude": "37.423380",
+        "Longitude": "-121.915812",
         "Summary": "Pending AI analysis..."
     }
 ]
