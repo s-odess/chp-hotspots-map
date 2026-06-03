@@ -36,6 +36,11 @@ def standardize_coordinates(frame: pd.DataFrame) -> pd.DataFrame:
     elif "lon" in df.columns:
         df["lon"] = pd.to_numeric(df["lon"], errors="coerce")
 
+    if "lat" in df.columns:
+        df["lat"] = df["lat"].astype("float64")
+    if "lon" in df.columns:
+        df["lon"] = df["lon"].astype("float64")
+
     return df
 
 
@@ -87,7 +92,7 @@ if not df.empty:
 
     with col1:
         st.subheader("📋 Active Incident Log")
-        display_cols = [c for c in ("Incident_No", "Time", "Type") if c in df.columns]
+        display_cols = [c for c in ("Time", "Type", "Location") if c in df.columns]
         st.dataframe(df[display_cols] if display_cols else df, width="stretch", hide_index=True)
 
     with col2:
@@ -102,7 +107,12 @@ if not df.empty:
                 else:
                     formatted_summary = raw_summary
 
-                st.markdown(f"**{row.get('Time', 'N/A')} — {row.get('Type', 'Incident')}**")
+                loc = row.get("Location", "")
+                if loc and str(loc).strip().lower() not in ("unknown", "n/a", ""):
+                    headline = f"**{row.get('Time', 'N/A')} — {row.get('Type', 'Incident')} @ {loc}**"
+                else:
+                    headline = f"**{row.get('Time', 'N/A')} — {row.get('Type', 'Incident')}**"
+                st.markdown(headline)
                 st.markdown(formatted_summary)
                 st.markdown(" ", unsafe_allow_html=True)
         else:
