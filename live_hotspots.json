@@ -2,24 +2,24 @@
     {
         "Incident_No": "Unknown",
         "Location": "Location Desc",
-        "Latitude": "32.846997",
-        "Longitude": "-117.177963",
+        "Latitude": "37.772948",
+        "Longitude": "-122.406550",
         "Raw_Details": "Log details unavailable.",
         "AI_Summary": "No dispatch data available to summarize."
     },
     {
         "Incident_No": "Unknown",
         "Location": "Location Desc",
-        "Latitude": "38.628401",
-        "Longitude": "-121.221458",
+        "Latitude": "38.769811",
+        "Longitude": "-121.248665",
         "Raw_Details": "Log details unavailable.",
         "AI_Summary": "No dispatch data available to summarize."
     },
     {
         "Incident_No": "Unknown",
         "Location": "Location Desc",
-        "Latitude": "36.990306",
-        "Longitude": "-119.711484",
+        "Latitude": "34.765940",
+        "Longitude": "-114.577234",
         "Raw_Details": "Log details unavailable.",
         "AI_Summary": "No dispatch data available to summarize."
     }
