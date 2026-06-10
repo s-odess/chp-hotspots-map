@@ -1,128 +1,26 @@
 [
     {
-        "Incident_No": "0199",
-        "Time": "2:08 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "71500-71529 Sr74",
-        "Latitude": "33.614555",
-        "Longitude": "-116.415242",
-        "Summary": "Heads up for drivers on State Route 74: earlier this afternoon, around 2:08 PM, there was a traffic collision reported in the area between 71500 and 71529. Emergency crews are on scene for a crash where injuries have been reported, so expect to see some activity and potential delays if you're traveling through that stretch. Please drive safely and pay extra attention."
+        "Incident_No": "Unknown",
+        "Location": "Location Desc",
+        "Latitude": "32.846997",
+        "Longitude": "-117.177963",
+        "Raw_Details": "Log details unavailable.",
+        "AI_Summary": "No dispatch data available to summarize."
     },
     {
-        "Incident_No": "0804",
-        "Time": "4:58 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "I15 N / Ted Williams Pkwy Ofr",
-        "Latitude": "32.956458",
-        "Longitude": "-117.100263",
-        "Summary": "Heads up for anyone traveling north on I-15 near the Ted Williams Parkway off-ramp: there's been a traffic collision in that area. Emergency services are on their way, so you might notice some slowed traffic and potential delays. Please drive carefully as you approach the scene."
+        "Incident_No": "Unknown",
+        "Location": "Location Desc",
+        "Latitude": "38.628401",
+        "Longitude": "-121.221458",
+        "Raw_Details": "Log details unavailable.",
+        "AI_Summary": "No dispatch data available to summarize."
     },
     {
-        "Incident_No": "0311",
-        "Time": "5:05 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "S Cardinal Ave / E Main St",
-        "Latitude": "37.958317",
-        "Longitude": "-121.219344",
-        "Summary": "Around 5:05 PM, we've had reports of a traffic collision at the intersection of S Cardinal Ave and E Main St. Drivers passing through this area might notice emergency crews on scene and could experience some delays, so it's a good idea to proceed with caution."
-    },
-    {
-        "Incident_No": "0371",
-        "Time": "5:01 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "I15 N / Ted Williams Pkwy Ofr",
-        "Latitude": "32.956458",
-        "Longitude": "-117.100263",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0547",
-        "Time": "1:47 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr56 W / Carmel Valley Eo",
-        "Latitude": "32.954006",
-        "Longitude": "-117.189656",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "1961",
-        "Time": "4:21 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Location": "I680 S / PARISH RD ONR",
-        "Latitude": "38.113217",
-        "Longitude": "-122.106335",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0681",
-        "Time": "3:34 PM",
-        "Type": "Trfc Collision-Major Inj",
-        "Location": "I5 S / MILE OF CARS SO (24TH_MARINA)",
-        "Latitude": "32.656544",
-        "Longitude": "-117.106673",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0111",
-        "Time": "3:57 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Location": "US395 / SAND SHED",
-        "Latitude": "37.498186",
-        "Longitude": "-118.582309",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0771",
-        "Time": "4:33 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "Sr51 N / Exposition Blvd",
-        "Latitude": "38.596914",
-        "Longitude": "-121.443445",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "2076",
-        "Time": "4:55 PM",
-        "Type": "Report of Fire",
-        "Location": "Sr4 E / Loveridge Rd Ofr",
-        "Latitude": "38.012821",
-        "Longitude": "-121.872431",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0387",
-        "Time": "4:56 PM",
-        "Type": "Traffic Hazard",
-        "Location": "Us101 At Fairview Ave/mtry Pen/sanborn",
-        "Latitude": "36.664081",
-        "Longitude": "-121.624760",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0531",
-        "Time": "4:21 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Location": "0 Jensen Ave Onr",
-        "Latitude": "36.704599",
-        "Longitude": "-119.772097",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0780",
-        "Time": "4:46 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "I5 S / Sr15 No",
-        "Latitude": "32.694322",
-        "Longitude": "-117.125597",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "2071",
-        "Time": "4:54 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "I880 S / Tasman Dr Ofr",
-        "Latitude": "37.423380",
-        "Longitude": "-121.915812",
-        "Summary": "Pending AI analysis..."
+        "Incident_No": "Unknown",
+        "Location": "Location Desc",
+        "Latitude": "36.990306",
+        "Longitude": "-119.711484",
+        "Raw_Details": "Log details unavailable.",
+        "AI_Summary": "No dispatch data available to summarize."
     }
 ]

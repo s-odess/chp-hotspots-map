@@ -1,43 +1,48 @@
-﻿name: 24-7 CHP Live Telemetry Pipeline
+﻿name: CHP Hotspots Pipeline
 
 on:
   schedule:
-    # Runs 6 times a day: Midnight, 4 AM, 8 AM, Noon, 4 PM, 8 PM UTC
-    # Distributes your 20 free-tier daily requests perfectly across 24 hours!
-    - cron: '0 0,4,8,12,16,20 * * *'
-  workflow_dispatch: # Keeps the manual "Run workflow" button active for testing
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: chp-hotspots-pipeline
+  cancel-in-progress: true
 
 jobs:
-  run-pipeline:
-    runs-on: ubuntu-latest
+  update:
+    runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout Repository Code
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
 
-    - name: Set Up Python Environment
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-        cache: 'pip'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install Architecture Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install google-genai python-dotenv requests playwright beautifulsoup4
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r engine_backend/requirements.txt
 
-    - name: Install Playwright Web Browser Binaries
-      run: playwright install chromium --with-deps
+      - name: Install Playwright Browser
+        run: playwright install chromium
 
-    - name: Run CHP Scraping Engine
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        GITHUB_REPO: "s-odess/chp-hotspots-map"
-      run: python chp_hotspots_engine.py
+      - name: Run CHP Hotspots Engine
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_REPO: ${{ github.repository }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python engine_backend/chp_hotspots_engine.py
 
-    - name: Run Gemini Summary Translation Agent
-      env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        GITHUB_REPO: "s-odess/chp-hotspots-map"
-      run: python -u agent.py
+      - name: Run AI Processing Agent
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python engine_backend/agent.py
