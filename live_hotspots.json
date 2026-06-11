@@ -1,128 +1,128 @@
 [
     {
-        "Incident_No": "2233",
-        "Time": "5:16 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "I880 N / Mission Blvd Ofr",
-        "Latitude": "37.476251",
-        "Longitude": "-121.932551",
-        "Summary": "Heads up for anyone driving northbound on I-880, especially around the Mission Boulevard off-ramp. There's been a traffic collision reported in that area, and emergency services are responding to unknown injuries. You can expect to see some activity and potential delays as they work to clear the scene."
-    },
-    {
-        "Incident_No": "2290",
-        "Time": "5:31 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "Sr1 / Marine Blvd",
-        "Latitude": "37.523567",
-        "Longitude": "-122.509524",
-        "Summary": "Heads up if you're traveling on Highway 1 near Marine Boulevard this evening. There's been a traffic collision reported in that area, and emergency crews are on the scene. You might notice some slowing or see first responders as they work to clear things up."
-    },
-    {
-        "Incident_No": "0801",
-        "Time": "7:14 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr91 E Wo / Imperial Hwy",
-        "Latitude": "33.854226",
-        "Longitude": "-117.802250",
-        "Summary": "Good evening, folks. Around 7:14 PM, we're seeing a traffic collision on State Route 91 Eastbound, just west of Imperial Highway. CHP units are on their way to the scene, so expect to see emergency vehicles and potential slowdowns in that area. Please drive carefully!"
-    },
-    {
-        "Incident_No": "0249",
-        "Time": "6:19 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Location": "0 Sites Lodoga Rd",
-        "Latitude": "39.354260",
-        "Longitude": "-122.401110",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "2627",
-        "Time": "7:16 PM",
+        "Incident_No": "1091",
+        "Time": "10:27 AM",
         "Type": "Car Fire",
-        "Location": "I580 E / Redwood Rd Ofr",
-        "Latitude": "37.690511",
-        "Longitude": "-122.078223",
+        "Location": "I80 W / Cherry Glen Rd Ofr",
+        "Latitude": "38.328394",
+        "Longitude": "-122.022082",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0501",
-        "Time": "5:57 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Location": "I5 N / Jayne Ave Ofr",
-        "Latitude": "36.133902",
-        "Longitude": "-120.155109",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "2667",
-        "Time": "7:29 PM",
-        "Type": "Report of Fire",
-        "Location": "Sr85 S / Santa Teresa Blvd Ofr",
-        "Latitude": "37.255365",
-        "Longitude": "-121.864013",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0987",
-        "Time": "7:45 PM",
+        "Incident_No": "0224",
+        "Time": "7:43 AM",
         "Type": "Trfc Collision-1141 Enrt",
-        "Location": "I15 N / Bernardo Center",
-        "Latitude": "33.012411",
-        "Longitude": "-117.079475",
+        "Location": "Sr60 W / Pigeon Pass Rd",
+        "Latitude": "33.940876",
+        "Longitude": "-117.261372",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0097",
-        "Time": "3:30 PM",
-        "Type": "Trfc Collision-No Inj",
-        "Location": "2570 MM36 W HUM 25.70",
-        "Latitude": "40.478421",
-        "Longitude": "-123.773746",
+        "Incident_No": "1138",
+        "Time": "10:39 AM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "I580 W / Isabel Ave E Ofr",
+        "Latitude": "37.700839",
+        "Longitude": "-121.794374",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "1163",
-        "Time": "7:51 PM",
-        "Type": "Report of Fire",
-        "Location": "I80 W / Reed Ave Ofr",
-        "Latitude": "38.592909",
-        "Longitude": "-121.551711",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0508",
-        "Time": "6:39 PM",
-        "Type": "Trfc Collision-No Inj",
-        "Location": "Sr219 / Sisk Rd",
-        "Latitude": "37.710887",
-        "Longitude": "-121.077539",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0208",
-        "Time": "4:52 PM",
+        "Incident_No": "0705",
+        "Time": "8:10 AM",
         "Type": "Trfc Collision-Unkn Inj",
-        "Location": "Us101 S / Price St Ofr",
-        "Latitude": "35.150725",
-        "Longitude": "-120.654412",
+        "Location": "I880 S / Industrial Pkwy Onr",
+        "Latitude": "37.616475",
+        "Longitude": "-122.073751",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "2273",
-        "Time": "5:25 PM",
-        "Type": "Hit and Run w/Injuries",
-        "Location": "Sr4 E / Lone Tree Way Ofr",
-        "Latitude": "37.964821",
-        "Longitude": "-121.740553",
+        "Incident_No": "1204",
+        "Time": "11:04 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "0 I80 W",
+        "Latitude": "37.788645",
+        "Longitude": "-122.388145",
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "2771",
-        "Time": "7:30 PM",
-        "Type": "Hit and Run No Injuries",
-        "Location": "E 68th St / Compton Ave",
-        "Latitude": "33.978016",
-        "Longitude": "-118.247679",
+        "Incident_No": "0172",
+        "Time": "9:13 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "35144-35451 Sr198",
+        "Latitude": "36.404949",
+        "Longitude": "-118.996679",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1263",
+        "Time": "11:26 AM",
+        "Type": "Car Fire",
+        "Location": "I580 W / San Ramon Rd Ofr",
+        "Latitude": "37.699601",
+        "Longitude": "-121.929534",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0723",
+        "Time": "8:12 AM",
+        "Type": "Trfc Collision-No Inj",
+        "Location": "Primrose Ave / Millbrae Ave",
+        "Latitude": "38.369534",
+        "Longitude": "-122.737236",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1200",
+        "Time": "11:02 AM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "I880 S / Auto Mall Pkwy Ofr",
+        "Latitude": "37.510485",
+        "Longitude": "-121.971450",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0118",
+        "Time": "8:38 AM",
+        "Type": "Wrong Way Driver",
+        "Location": "Imjin Pkwy / 3rd Ave",
+        "Latitude": "36.666459",
+        "Longitude": "-121.804594",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0236",
+        "Time": "11:09 AM",
+        "Type": "Trfc Collision-No Inj",
+        "Location": "Us101 S  / Cochrane Rd",
+        "Latitude": "37.149077",
+        "Longitude": "-121.648946",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1014",
+        "Time": "11:01 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "40697 130th St E",
+        "Latitude": "34.621942",
+        "Longitude": "-117.898928",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0372",
+        "Time": "10:47 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Pourroy Rd / Honey Pine Rd",
+        "Latitude": "33.575977",
+        "Longitude": "-117.101356",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1038",
+        "Time": "11:16 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Sr91 W / Eo I605",
+        "Latitude": "33.876456",
+        "Longitude": "-118.100626",
         "Summary": "Pending AI analysis..."
     }
 ]
