@@ -7,7 +7,7 @@
         "Latitude": "38.328394",
         "Longitude": "-122.022082",
         "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Summary": "Narrative queued: awaiting next cycle."
     },
     {
         "Incident_No": "1204",
@@ -16,8 +16,7 @@
         "Location": "0 I80 W",
         "Latitude": "37.788645",
         "Longitude": "-122.388145",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0224",
@@ -26,8 +25,7 @@
         "Location": "Sr60 W / Pigeon Pass Rd",
         "Latitude": "33.940876",
         "Longitude": "-117.261372",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1111",
@@ -36,8 +34,7 @@
         "Location": "SR118 E / WO I405",
         "Latitude": "34.265903",
         "Longitude": "-118.474029",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1263",
@@ -46,8 +43,7 @@
         "Location": "I580 W / FOOTHILL RD ONR",
         "Latitude": "37.698485",
         "Longitude": "-121.941735",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0172",
@@ -56,8 +52,7 @@
         "Location": "35144-35451 Sr198",
         "Latitude": "36.404949",
         "Longitude": "-118.996679",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0202",
@@ -66,8 +61,7 @@
         "Location": "I580 W / FOOTHILL RD ONR",
         "Latitude": "37.698485",
         "Longitude": "-121.941735",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1319",
@@ -76,8 +70,7 @@
         "Location": "Us101 N / Freitas Pkwy Ofr",
         "Latitude": "38.002784",
         "Longitude": "-122.538358",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0028",
@@ -86,8 +79,7 @@
         "Location": "Sr36 / Sr89 Chester",
         "Latitude": "40.278716",
         "Longitude": "-121.253457",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1038",
@@ -96,8 +88,7 @@
         "Location": "Sr91 W / Eo I605",
         "Latitude": "33.876456",
         "Longitude": "-118.100626",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1014",
@@ -106,8 +97,7 @@
         "Location": "40697 130th St E",
         "Latitude": "34.621942",
         "Longitude": "-117.898928",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0197",
@@ -116,8 +106,7 @@
         "Location": "Us101 N / Freitas Pkwy Ofr",
         "Latitude": "38.002784",
         "Longitude": "-122.538358",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1315",
@@ -126,8 +115,7 @@
         "Location": "1990 Cooper Rd",
         "Latitude": "38.382357",
         "Longitude": "-122.801563",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0055",
@@ -136,7 +124,6 @@
         "Location": "Sr22 W / Harbor Blvd",
         "Latitude": "33.767945",
         "Longitude": "-117.920267",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     }
 ]
