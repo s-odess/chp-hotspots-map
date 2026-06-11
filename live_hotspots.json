@@ -18,21 +18,21 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0249",
-        "Time": "6:19 PM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Location": "0 Sites Lodoga Rd",
-        "Latitude": "39.354260",
-        "Longitude": "-122.401110",
-        "Summary": "Pending AI analysis..."
-    },
-    {
         "Incident_No": "0801",
         "Time": "7:14 PM",
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "Sr91 E Wo / Imperial Hwy",
         "Latitude": "33.854226",
         "Longitude": "-117.802250",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0249",
+        "Time": "6:19 PM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "0 Sites Lodoga Rd",
+        "Latitude": "39.354260",
+        "Longitude": "-122.401110",
         "Summary": "Pending AI analysis..."
     },
     {
