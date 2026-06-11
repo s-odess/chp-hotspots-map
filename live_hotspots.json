@@ -6,7 +6,7 @@
         "Location": "I80 W / Cherry Glen Rd Ofr",
         "Latitude": "38.328394",
         "Longitude": "-122.022082",
-        "Summary": "Heads up if you're traveling westbound on I-80 near the Cherry Glen Road off-ramp this morning. There's been a report of a car fire in that area, so you might spot emergency crews and some smoke. Please drive carefully and be prepared for potential slowdowns as they respond to the scene."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0224",
@@ -15,24 +15,6 @@
         "Location": "Sr60 W / Pigeon Pass Rd",
         "Latitude": "33.940876",
         "Longitude": "-117.261372",
-        "Summary": "Good morning drivers. We're seeing a traffic collision reported on Sr60 West near Pigeon Pass Road, and emergency services are currently on their way to the scene. You'll likely want to be prepared for some slowdowns and potential delays in that area as crews respond."
-    },
-    {
-        "Incident_No": "1138",
-        "Time": "10:39 AM",
-        "Type": "Trfc Collision-Minor Inj",
-        "Location": "I580 W / Isabel Ave E Ofr",
-        "Latitude": "37.700839",
-        "Longitude": "-121.794374",
-        "Summary": "Good morning, drivers. We have a minor traffic collision to be aware of on westbound I-580, right around the Isabel Avenue offramp area. Emergency crews are on scene, and you might notice some slowing as traffic navigates past the incident. Please drive carefully and give yourself a little extra time if you're headed through that stretch."
-    },
-    {
-        "Incident_No": "0705",
-        "Time": "8:10 AM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "I880 S / Industrial Pkwy Onr",
-        "Latitude": "37.616475",
-        "Longitude": "-122.073751",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -45,21 +27,30 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0172",
-        "Time": "9:13 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "35144-35451 Sr198",
-        "Latitude": "36.404949",
-        "Longitude": "-118.996679",
+        "Incident_No": "1138",
+        "Time": "10:39 AM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "I580 W / Isabel Ave E Ofr",
+        "Latitude": "37.700839",
+        "Longitude": "-121.794374",
         "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1263",
         "Time": "11:26 AM",
         "Type": "Car Fire",
-        "Location": "I580 W / San Ramon Rd Ofr",
-        "Latitude": "37.699601",
-        "Longitude": "-121.929534",
+        "Location": "I580 W / FOOTHILL RD ONR",
+        "Latitude": "37.698485",
+        "Longitude": "-121.941735",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0172",
+        "Time": "9:13 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "35144-35451 Sr198",
+        "Latitude": "36.404949",
+        "Longitude": "-118.996679",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -72,21 +63,21 @@
         "Summary": "Pending AI analysis..."
     },
     {
+        "Incident_No": "0202",
+        "Time": "11:50 AM",
+        "Type": "Car Fire",
+        "Location": "I580 W / FOOTHILL RD ONR",
+        "Latitude": "37.698485",
+        "Longitude": "-121.941735",
+        "Summary": "Pending AI analysis..."
+    },
+    {
         "Incident_No": "1200",
         "Time": "11:02 AM",
         "Type": "Trfc Collision-Unkn Inj",
         "Location": "I880 S / Auto Mall Pkwy Ofr",
         "Latitude": "37.510485",
         "Longitude": "-121.971450",
-        "Summary": "Pending AI analysis..."
-    },
-    {
-        "Incident_No": "0118",
-        "Time": "8:38 AM",
-        "Type": "Wrong Way Driver",
-        "Location": "Imjin Pkwy / 3rd Ave",
-        "Latitude": "36.666459",
-        "Longitude": "-121.804594",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -114,6 +105,15 @@
         "Location": "Pourroy Rd / Honey Pine Rd",
         "Latitude": "33.575977",
         "Longitude": "-117.101356",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1319",
+        "Time": "11:44 AM",
+        "Type": "Traffic Hazard",
+        "Location": "Us101 N / Freitas Pkwy Ofr",
+        "Latitude": "38.002784",
+        "Longitude": "-122.538358",
         "Summary": "Pending AI analysis..."
     },
     {
