@@ -1,26 +1,128 @@
 [
     {
-        "Incident_No": "Unknown",
-        "Location": "Location Desc",
-        "Latitude": "37.772948",
-        "Longitude": "-122.406550",
-        "Raw_Details": "Log details unavailable.",
-        "AI_Summary": "No dispatch data available to summarize."
+        "Incident_No": "2411",
+        "Time": "6:06 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "I880 S / Thornton Ave E Onr",
+        "Latitude": "37.542988",
+        "Longitude": "-122.020226",
+        "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "Unknown",
-        "Location": "Location Desc",
-        "Latitude": "38.769811",
-        "Longitude": "-121.248665",
-        "Raw_Details": "Log details unavailable.",
-        "AI_Summary": "No dispatch data available to summarize."
+        "Incident_No": "2233",
+        "Time": "5:16 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "I880 N / Mission Blvd Ofr",
+        "Latitude": "37.476251",
+        "Longitude": "-121.932551",
+        "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "Unknown",
-        "Location": "Location Desc",
-        "Latitude": "34.765940",
-        "Longitude": "-114.577234",
-        "Raw_Details": "Log details unavailable.",
-        "AI_Summary": "No dispatch data available to summarize."
+        "Incident_No": "2290",
+        "Time": "5:31 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Sr1 / Marine Blvd",
+        "Latitude": "37.523567",
+        "Longitude": "-122.509524",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0801",
+        "Time": "7:14 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Sr91 E Wo / Imperial Hwy",
+        "Latitude": "33.854226",
+        "Longitude": "-117.802250",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0249",
+        "Time": "6:19 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "0 Sites Lodoga Rd",
+        "Latitude": "39.354260",
+        "Longitude": "-122.401110",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0501",
+        "Time": "5:57 PM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "I5 N / Jayne Ave Ofr",
+        "Latitude": "36.133902",
+        "Longitude": "-120.155109",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "2667",
+        "Time": "7:29 PM",
+        "Type": "Report of Fire",
+        "Location": "Sr85 S / Santa Teresa Blvd Ofr",
+        "Latitude": "37.255365",
+        "Longitude": "-121.864013",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0987",
+        "Time": "7:45 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "I15 N / Bernardo Center",
+        "Latitude": "33.012411",
+        "Longitude": "-117.079475",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0097",
+        "Time": "3:30 PM",
+        "Type": "Trfc Collision-No Inj",
+        "Location": "2570 MM36 W HUM 25.70",
+        "Latitude": "40.478421",
+        "Longitude": "-123.773746",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "2627",
+        "Time": "7:16 PM",
+        "Type": "Car Fire",
+        "Location": "I580 E / Redwood Rd Ofr",
+        "Latitude": "37.690511",
+        "Longitude": "-122.078223",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0508",
+        "Time": "6:39 PM",
+        "Type": "Trfc Collision-No Inj",
+        "Location": "Sr219 / Sisk Rd",
+        "Latitude": "37.710887",
+        "Longitude": "-121.077539",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0208",
+        "Time": "4:52 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Us101 S / Price St Ofr",
+        "Latitude": "35.150725",
+        "Longitude": "-120.654412",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "2273",
+        "Time": "5:25 PM",
+        "Type": "Hit and Run w/Injuries",
+        "Location": "Sr4 E / Lone Tree Way Ofr",
+        "Latitude": "37.964821",
+        "Longitude": "-121.740553",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "2740",
+        "Time": "7:19 PM",
+        "Type": "Traffic Hazard",
+        "Location": "I405 S / I105 W",
+        "Latitude": "33.930194",
+        "Longitude": "-118.368526",
+        "Summary": "Pending AI analysis..."
     }
 ]
