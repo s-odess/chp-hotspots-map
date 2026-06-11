@@ -1,21 +1,12 @@
 [
     {
-        "Incident_No": "2411",
-        "Time": "6:06 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "I880 S / Thornton Ave E Onr",
-        "Latitude": "37.542988",
-        "Longitude": "-122.020226",
-        "Summary": "Just a heads-up for drivers heading south on I-880 near the Thornton Avenue East on-ramp: there's been a traffic collision reported around 6:06 PM. Emergency crews are likely responding to the scene, as there are potential injuries involved. You'll want to be extra cautious and prepare for some delays in that area."
-    },
-    {
         "Incident_No": "2233",
         "Time": "5:16 PM",
         "Type": "Trfc Collision-Unkn Inj",
         "Location": "I880 N / Mission Blvd Ofr",
         "Latitude": "37.476251",
         "Longitude": "-121.932551",
-        "Summary": "Heads up for anyone traveling on northbound I-880 near the Mission Boulevard off-ramp: we're seeing a traffic accident there right now. While we don't have details on any injuries, expect some slowdowns and give emergency responders plenty of room to work safely."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "2290",
@@ -24,7 +15,16 @@
         "Location": "Sr1 / Marine Blvd",
         "Latitude": "37.523567",
         "Longitude": "-122.509524",
-        "Summary": "Good evening, drivers. We have a traffic alert to share if you're on Sr1 at Marine Boulevard, where a collision occurred around 5:31 PM. While the exact nature of any injuries is still being determined, you'll likely see emergency personnel on scene. Please drive carefully and be ready for some slowdowns in that area."
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0249",
+        "Time": "6:19 PM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "0 Sites Lodoga Rd",
+        "Latitude": "39.354260",
+        "Longitude": "-122.401110",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0801",
@@ -36,12 +36,12 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0249",
-        "Time": "6:19 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "0 Sites Lodoga Rd",
-        "Latitude": "39.354260",
-        "Longitude": "-122.401110",
+        "Incident_No": "2627",
+        "Time": "7:16 PM",
+        "Type": "Car Fire",
+        "Location": "I580 E / Redwood Rd Ofr",
+        "Latitude": "37.690511",
+        "Longitude": "-122.078223",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -81,12 +81,12 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "2627",
-        "Time": "7:16 PM",
-        "Type": "Car Fire",
-        "Location": "I580 E / Redwood Rd Ofr",
-        "Latitude": "37.690511",
-        "Longitude": "-122.078223",
+        "Incident_No": "1163",
+        "Time": "7:51 PM",
+        "Type": "Report of Fire",
+        "Location": "I80 W / Reed Ave Ofr",
+        "Latitude": "38.592909",
+        "Longitude": "-121.551711",
         "Summary": "Pending AI analysis..."
     },
     {
@@ -117,12 +117,12 @@
         "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "2740",
-        "Time": "7:19 PM",
-        "Type": "Traffic Hazard",
-        "Location": "I405 S / I105 W",
-        "Latitude": "33.930194",
-        "Longitude": "-118.368526",
+        "Incident_No": "2771",
+        "Time": "7:30 PM",
+        "Type": "Hit and Run No Injuries",
+        "Location": "E 68th St / Compton Ave",
+        "Latitude": "33.978016",
+        "Longitude": "-118.247679",
         "Summary": "Pending AI analysis..."
     }
 ]
