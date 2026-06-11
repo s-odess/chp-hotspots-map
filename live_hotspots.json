@@ -6,16 +6,8 @@
         "Location": "I80 W / Cherry Glen Rd Ofr",
         "Latitude": "38.328394",
         "Longitude": "-122.022082",
-        "Summary": "Heads up for those heading on Westbound I-80 near the Cherry Glen Road off-ramp: CHP is on the scene of a car fire. You might notice some smoke and emergency crews in the area, so please be prepared for potential slowdowns and delays as they manage the situation."
-    },
-    {
-        "Incident_No": "0224",
-        "Time": "7:43 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr60 W / Pigeon Pass Rd",
-        "Latitude": "33.940876",
-        "Longitude": "-117.261372",
-        "Summary": "Good morning, drivers. If you're heading west on the SR-60 near Pigeon Pass Road, be aware there's been a traffic collision reported in that area. Emergency services are on their way to the scene, so you can expect to see some delays and responders as they work to clear things up."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1204",
@@ -24,15 +16,18 @@
         "Location": "0 I80 W",
         "Latitude": "37.788645",
         "Longitude": "-122.388145",
-        "Summary": "Just a heads-up for anyone traveling on westbound I-80: emergency services are currently responding to a traffic collision. You'll likely see some delays and activity in that area, so plan a little extra time for your commute."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "1263",
-        "Time": "11:26 AM",
-        "Type": "Car Fire",
-        "Location": "I580 W / FOOTHILL RD ONR",
-        "Latitude": "37.698485",
-        "Longitude": "-121.941735"
+        "Incident_No": "0224",
+        "Time": "7:43 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Sr60 W / Pigeon Pass Rd",
+        "Latitude": "33.940876",
+        "Longitude": "-117.261372",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1111",
@@ -40,7 +35,19 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "SR118 E / WO I405",
         "Latitude": "34.265903",
-        "Longitude": "-118.474029"
+        "Longitude": "-118.474029",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1263",
+        "Time": "11:26 AM",
+        "Type": "Car Fire",
+        "Location": "I580 W / FOOTHILL RD ONR",
+        "Latitude": "37.698485",
+        "Longitude": "-121.941735",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0172",
@@ -48,7 +55,9 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "35144-35451 Sr198",
         "Latitude": "36.404949",
-        "Longitude": "-118.996679"
+        "Longitude": "-118.996679",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0202",
@@ -56,7 +65,9 @@
         "Type": "Car Fire",
         "Location": "I580 W / FOOTHILL RD ONR",
         "Latitude": "37.698485",
-        "Longitude": "-121.941735"
+        "Longitude": "-121.941735",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1319",
@@ -64,47 +75,9 @@
         "Type": "Traffic Hazard",
         "Location": "Us101 N / Freitas Pkwy Ofr",
         "Latitude": "38.002784",
-        "Longitude": "-122.538358"
-    },
-    {
-        "Incident_No": "0103",
-        "Time": "11:51 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "SR118 E / I405",
-        "Latitude": "34.265900",
-        "Longitude": "-118.472252"
-    },
-    {
-        "Incident_No": "1038",
-        "Time": "11:16 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr91 W / Eo I605",
-        "Latitude": "33.876456",
-        "Longitude": "-118.100626"
-    },
-    {
-        "Incident_No": "1014",
-        "Time": "11:01 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "40697 130th St E",
-        "Latitude": "34.621942",
-        "Longitude": "-117.898928"
-    },
-    {
-        "Incident_No": "0197",
-        "Time": "11:45 AM",
-        "Type": "Traffic Hazard",
-        "Location": "Us101 N / Freitas Pkwy Ofr",
-        "Latitude": "38.002784",
-        "Longitude": "-122.538358"
-    },
-    {
-        "Incident_No": "0372",
-        "Time": "10:47 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Pourroy Rd / Honey Pine Rd",
-        "Latitude": "33.575977",
-        "Longitude": "-117.101356"
+        "Longitude": "-122.538358",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0028",
@@ -112,6 +85,58 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "Sr36 / Sr89 Chester",
         "Latitude": "40.278716",
-        "Longitude": "-121.253457"
+        "Longitude": "-121.253457",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1038",
+        "Time": "11:16 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Sr91 W / Eo I605",
+        "Latitude": "33.876456",
+        "Longitude": "-118.100626",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1014",
+        "Time": "11:01 AM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "40697 130th St E",
+        "Latitude": "34.621942",
+        "Longitude": "-117.898928",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0197",
+        "Time": "11:45 AM",
+        "Type": "Traffic Hazard",
+        "Location": "Us101 N / Freitas Pkwy Ofr",
+        "Latitude": "38.002784",
+        "Longitude": "-122.538358",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1315",
+        "Time": "11:40 AM",
+        "Type": "Trfc Collision-No Inj",
+        "Location": "1990 Cooper Rd",
+        "Latitude": "38.382357",
+        "Longitude": "-122.801563",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0055",
+        "Time": "11:28 AM",
+        "Type": "Trfc Collision-1141Enrt",
+        "Location": "Sr22 W / Harbor Blvd",
+        "Latitude": "33.767945",
+        "Longitude": "-117.920267",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     }
 ]
