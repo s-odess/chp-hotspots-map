@@ -6,7 +6,7 @@
         "Location": "I80 W / Cherry Glen Rd Ofr",
         "Latitude": "38.328394",
         "Longitude": "-122.022082",
-        "Summary": "Pending AI analysis..."
+        "Summary": "Alright, drivers, if you're heading west on I-80 near the Cherry Glen Road off-ramp this morning, just a heads-up: there's a car fire. You'll likely see emergency crews on the scene, so expect some potential delays and be ready to slow down a bit as they manage the situation."
     },
     {
         "Incident_No": "0224",
@@ -15,7 +15,7 @@
         "Location": "Sr60 W / Pigeon Pass Rd",
         "Latitude": "33.940876",
         "Longitude": "-117.261372",
-        "Summary": "Pending AI analysis..."
+        "Summary": "Good morning, drivers. If you're heading out on the **westbound 60 near Pigeon Pass Road**, be aware there's been a traffic collision reported in that area. Emergency services are currently responding to the scene, so you'll want to take it slow and expect some potential delays through that stretch."
     },
     {
         "Incident_No": "1204",
@@ -24,7 +24,7 @@
         "Location": "0 I80 W",
         "Latitude": "37.788645",
         "Longitude": "-122.388145",
-        "Summary": "Pending AI analysis..."
+        "Summary": "Narrative queued: awaiting next cycle."
     },
     {
         "Incident_No": "1263",
@@ -32,8 +32,7 @@
         "Type": "Car Fire",
         "Location": "I580 W / FOOTHILL RD ONR",
         "Latitude": "37.698485",
-        "Longitude": "-121.941735",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-121.941735"
     },
     {
         "Incident_No": "0172",
@@ -41,8 +40,7 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "35144-35451 Sr198",
         "Latitude": "36.404949",
-        "Longitude": "-118.996679",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-118.996679"
     },
     {
         "Incident_No": "0202",
@@ -50,8 +48,7 @@
         "Type": "Car Fire",
         "Location": "I580 W / FOOTHILL RD ONR",
         "Latitude": "37.698485",
-        "Longitude": "-121.941735",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-121.941735"
     },
     {
         "Incident_No": "1319",
@@ -59,8 +56,7 @@
         "Type": "Traffic Hazard",
         "Location": "Us101 N / Freitas Pkwy Ofr",
         "Latitude": "38.002784",
-        "Longitude": "-122.538358",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-122.538358"
     },
     {
         "Incident_No": "1111",
@@ -68,8 +64,7 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "SR118 E / WO I405",
         "Latitude": "34.265903",
-        "Longitude": "-118.474029",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-118.474029"
     },
     {
         "Incident_No": "1038",
@@ -77,8 +72,7 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "Sr91 W / Eo I605",
         "Latitude": "33.876456",
-        "Longitude": "-118.100626",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-118.100626"
     },
     {
         "Incident_No": "0236",
@@ -86,8 +80,7 @@
         "Type": "Trfc Collision-No Inj",
         "Location": "Us101 S  / Cochrane Rd",
         "Latitude": "37.149077",
-        "Longitude": "-121.648946",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-121.648946"
     },
     {
         "Incident_No": "0197",
@@ -95,8 +88,7 @@
         "Type": "Traffic Hazard",
         "Location": "Us101 N / Freitas Pkwy Ofr",
         "Latitude": "38.002784",
-        "Longitude": "-122.538358",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-122.538358"
     },
     {
         "Incident_No": "1014",
@@ -104,8 +96,7 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "40697 130th St E",
         "Latitude": "34.621942",
-        "Longitude": "-117.898928",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-117.898928"
     },
     {
         "Incident_No": "0372",
@@ -113,8 +104,7 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "Pourroy Rd / Honey Pine Rd",
         "Latitude": "33.575977",
-        "Longitude": "-117.101356",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-117.101356"
     },
     {
         "Incident_No": "0103",
@@ -122,7 +112,6 @@
         "Type": "Trfc Collision-1141 Enrt",
         "Location": "SR118 E / I405",
         "Latitude": "34.265900",
-        "Longitude": "-118.472252",
-        "Summary": "Pending AI analysis..."
+        "Longitude": "-118.472252"
     }
 ]
