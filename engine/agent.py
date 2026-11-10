@@ -15,7 +15,7 @@ if not os.getenv("GEMINI_API_KEY"):
     print("[-] Structural Error: GEMINI_API_KEY is missing from environment.")
     exit(1)
 
-client = genai.Client()
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 FILE_PATH = "live_hotspots.json"
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
@@ -63,7 +63,7 @@ def get_location_string(incident):
 
 
 def narrative_context(incident):
-    """Human-relevant dispatch fields for Gemini — never raw coordinates."""
+    """Human-relevant dispatch fields for Gemini, never raw coordinates."""
     return {k: v for k, v in incident.items() if k not in COORD_KEYS}
 
 
@@ -111,7 +111,7 @@ Your job: turn raw dispatch information into a short, conversational story (2–
 {location_instruction}
 
 Rules:
-- Write in plain, natural English — like you're telling a friend, not reading a police blotter.
+- Write in plain, natural English, like you're telling a friend, not reading a police blotter.
 - Translate police codes and jargon into everyday language (e.g., 23103 → reckless driving, 118 → traffic collision).
 - When Location is provided, name it early in the story (e.g., "On I-5 north near ...").
 - Do NOT use headlines, labels, or templates (no "NEWS DESK ALERT", no bullet lists, no ALL CAPS shouting).
@@ -173,7 +173,7 @@ def push_to_github(data_list):
 
     put_response = requests.put(api_url, headers=headers, json=payload)
     if put_response.status_code in [200, 201]:
-        print("[SUCCESS] Production dataset pushed! Streamlit synchronization complete.")
+        print("[SUCCESS] Dataset pushed to GitHub.")
     else:
         print(f"[-] Data push rejected: {put_response.status_code} - {put_response.text}")
 
