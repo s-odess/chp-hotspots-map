@@ -1,65 +1,95 @@
 # Real-Time Incident Data ETL Pipeline
 
-A fully autonomous pipeline that extracts live public safety incident data from a legacy government dispatch system, translates raw first-responder shorthand into plain-English summaries using a large language model, and publishes the results to the cloud — on a 30-minute automated cycle with no human intervention.
+A Python pipeline that extracts live incident data from the California Highway Patrol (CHP) public dispatch dashboard, translates dispatch shorthand into plain-English summaries with the Gemini API, and publishes structured JSON to GitHub.
 
------
+**Status:** The pipeline runs end to end when launched by hand. The demo video shows the command line extracting a live incident and generating its summary. A GitHub Actions workflow is included, and its cron schedule is disabled because the pipeline has not been run on a recurring schedule, owing to Gemini API quota limits on the free tier.
 
-## The Problem This Solves
+**Demo video:** https://lnkd.in/p/gc9uwAyJ
 
-California’s CHP (Highway Patrol) publishes live traffic incident data through a public web dashboard. But the underlying system is built on ASP.NET WebForms — a Microsoft framework from the early 2000s that uses rotating cryptographic session tokens (`__VIEWSTATE`, `__EVENTVALIDATION`) to validate every page interaction. A standard HTTP request returns nothing useful; the server detects it isn’t a real browser and drops the connection.
+---
 
-On top of that, the raw data itself is unusable to the public — it’s dense with police radio codes, incident numbers, and GPS coordinates with no context.
+## Why This Project Exists
 
-This pipeline solves both problems.
+The CHP dashboard (https://cad.chp.ca.gov/Traffic.aspx) is an ASP.NET WebForms application. Each page interaction carries session state tokens (`__VIEWSTATE`, `__EVENTVALIDATION`), so the extraction layer drives a real headless browser with Playwright. The raw records contain dispatch codes, terse location strings, and coordinates that appear only on each incident's detail page. The pipeline collects those fields and turns them into text that a driver can read.
 
------
+## How It Works
 
-## How It Works: Stage by Stage
+### 1. Extraction (`engine/chp_hotspots_engine.py`)
 
-### Stage 1 — Extraction Engine (`chp_hotspots_engine.py`)
+Playwright launches headless Chromium, opens the dashboard, waits for the network to go idle, selects the "Hot Spots" search, and reads the incident grid. The script then opens the Details page for every row. It reads latitude and longitude from the detail page with a regular expression and takes the location from the detail page, falling back to the grid column. The output is `live_hotspots.json`, one record per incident with these fields: `Incident_No`, `Time`, `Type`, `Location`, `Latitude`, `Longitude`, and a `Summary` placeholder.
 
-Rather than fighting the session token system with manual HTTP requests, the extraction layer uses **Playwright** to launch a real headless Chromium browser in server memory. The script navigates to the dashboard, waits for the network to go idle (avoiding crashes during the site’s auto-refresh cycles), selects the “Hot Spots” filter from the dropdown, and reads the resulting incident grid.
+### 2. Summarization (`engine/agent.py`)
 
-Critically, it doesn’t stop at the surface table. It loops through every row and programmatically clicks into each incident’s **Details page**, where the precise latitude/longitude coordinates are embedded in hidden anchor tags — data that never appears in the main grid at all.
+The agent reads the JSON, skips records without coordinates, and sends the remaining dispatch fields to Gemini 2.5 Flash through the `google-genai` SDK. The prompt sets the rules: plain English, two to four sentences, dispatch codes translated (for example, 23103 to reckless driving and 118 to traffic collision), the location named early, no headlines, no ALL CAPS, and no coordinates in the text.
 
-### Stage 2 — AI Translation Agent (`agent.py`)
+- Rate-limit and server errors (429, 503, `RESOURCE_EXHAUSTED`) trigger retries with waits of 15, 30, and 45 seconds.
+- A summary that contains a known missing-location phrase counts as unfinished, and the next run regenerates it.
+- Each run writes at most three summaries to stay inside the free-tier quota.
+- When the quota runs out, the agent saves its progress and writes a placeholder for the remaining records.
 
-The raw extracted data is a structured JSON file, but the content is still machine language: police dispatch codes, terse location abbreviations, and incident type numbers. The agent feeds each record to the **Gemini API** with a tightly constrained prompt.
+### 3. Publishing
 
-This is where the engineering discipline matters most. The prompt isn’t open-ended — it enforces hard rules:
+When `GITHUB_TOKEN` and `GITHUB_REPO` are set, the scripts can publish `live_hotspots.json` through the GitHub REST API (an authenticated PUT with Base64 content). The GitHub Actions workflow commits the file with git instead.
 
-- Translate police codes into plain English (e.g., `23103` → reckless driving)
-- Weave the location naturally into a 2–4 sentence narrative
-- Never use ALL CAPS, bullet points, or template headers
-- Never acknowledge missing data — work with what exists
+## Run It Locally
 
-The agent also validates the output. If Gemini returns a summary containing phrases like *“I don’t have the specific location details”*, the script catches that string, flags the record as failed, and retries. If the API quota is exhausted mid-run, it saves progress gracefully rather than corrupting the dataset.
+```
+pip install -r engine/requirements.txt
+playwright install chromium
+```
 
-### Stage 3 — Cloud Sync (`push_to_github()`)
+Create `.env.txt` in the repository root:
 
-Both the extraction engine and the AI agent end with the same function: a direct write to the **GitHub REST API**. The updated JSON is Base64-encoded and sent as an authenticated HTTP PUT request, overwriting the live data file in the repository without a single manual `git commit`. A connected Streamlit app reads from that file, so the public-facing map updates automatically.
+```
+GEMINI_API_KEY=your_key
+GITHUB_TOKEN=your_token      # optional, enables publishing through the API
+GITHUB_REPO=owner/repo       # optional
+```
 
-### Stage 4 — Orchestration (`pipeline.yml` / `run_pipeline.py`)
+Run the two stages from the repository root:
 
-Locally, `run_pipeline.py` runs the full sequence on a 180-second loop from the command line, printing live status to the terminal. In production, that same logic is translated into a **GitHub Actions** workflow that spins up a fresh Ubuntu environment every 30 minutes, installs dependencies, runs both scripts, and commits the result — entirely serverless, entirely unattended.
+```
+python engine/chp_hotspots_engine.py
+python engine/agent.py
+```
 
------
+Run `python run_pipeline.py` to repeat both stages every 180 seconds until you press Ctrl+C.
 
-## Technology Stack
+## Scheduled Workflow
 
-|Layer             |Tool                                              |
-|------------------|--------------------------------------------------|
-|Browser Automation|Playwright (Sync API, headless Chromium)          |
-|AI Summarization  |Google Gemini 2.5 Flash via `google-genai` SDK    |
-|Data Format       |JSON (structured from unstructured HTML)          |
-|Cloud Storage     |GitHub REST API (authenticated PUT)               |
-|Orchestration     |GitHub Actions (cron schedule) / `subprocess` loop|
-|Language          |Python 3.11                                       |
+`.github/workflows/pipeline.yml` runs the extraction and summarization stages, then commits `live_hotspots.json`. It currently runs on manual dispatch. The 30-minute cron schedule is commented out in the file and returns once a scheduled run has been verified. The workflow reads `GEMINI_API_KEY` and `GH_PAT` from repository secrets.
 
------
+## Known Limitations
 
-## Engineering Notes
+- Each extraction run rewrites `live_hotspots.json` with the current incidents and placeholder summaries, so summaries from earlier runs do not carry forward. With the three-summary cap, most records show a placeholder at any given moment.
+- Summaries draw on the grid fields, the location, and the coordinates. An earlier version captured more of each detail page, and restoring that depth is the next step.
+- The pipeline has no front end. The output is the JSON file.
+- The selectors target the dashboard's current element names and IDs. A layout change on the CHP site requires a selector update.
+- The free-tier Gemini quota limits throughput.
 
-- **Defensive selectors throughout:** The CHP dashboard undergoes frequent DOM changes. All locators use attribute-based selectors rather than brittle CSS paths, and every navigation step waits for `networkidle` before proceeding.
-- **Quota-aware AI calls:** The agent caps itself at 3 Gemini calls per run and backs off progressively on rate-limit errors, preserving daily API quota across the 30-minute pipeline cycles.
-- **No credentials in code:** All tokens (`GITHUB_TOKEN`, `GEMINI_API_KEY`) are injected via GitHub Actions secrets or a local `.env` file — never hardcoded.
+## Technology
+
+| Layer | Tool |
+| --- | --- |
+| Language | Python 3.11 |
+| Browser automation | Playwright (sync API, headless Chromium) |
+| HTML parsing | BeautifulSoup |
+| Summarization | Gemini 2.5 Flash through `google-genai` |
+| Data format | JSON |
+| Publishing | GitHub REST API (`requests`) or git commit in the workflow |
+| Scheduling | GitHub Actions (manual dispatch), or the local `run_pipeline.py` loop |
+| Configuration | `python-dotenv` and repository secrets |
+
+## Repository Layout
+
+- `engine/chp_hotspots_engine.py`: extraction
+- `engine/agent.py`: summarization
+- `engine/requirements.txt`: dependencies
+- `run_pipeline.py`: local loop that runs both stages
+- `live_hotspots.json`: latest output
+- `.github/workflows/pipeline.yml`: GitHub Actions workflow
+- `fetch_feed.py`, `chp_postback_test.py`, `parse_timeout.py`, `process_hotspots.py`, `test_env.py`: earlier experiments kept for reference (`fetch_feed.py` is a network sniffer, `chp_postback_test.py` is a raw token-replay test, and `process_hotspots.py` is a legacy HTML parser). The current pipeline does not use them.
+
+## Security
+
+Credentials come from environment variables, `.env.txt`, or GitHub Actions secrets. No credentials appear in the code.

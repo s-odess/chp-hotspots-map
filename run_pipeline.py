@@ -1,40 +1,51 @@
+import os
 import subprocess
-import time
 import sys
+import time
 
-# Interval in seconds (e.g., 300 seconds = 5 minutes)
-# The CHP dashboard naturally refreshes its data every 60 seconds
-INTERVAL = 180 
+# The CHP dashboard refreshes its data about every 60 seconds.
+# Each run summarizes at most three incidents, so a short interval does not exhaust the quota quickly.
+INTERVAL = 180
 
-print("========================================================")
-print("🚀 CHP DISPATCH AGENT: COUPLING PIPELINE ORCHESTRATOR")
-print(f"Tracking interval established: Every {INTERVAL} seconds")
-print("========================================================\n")
+ROOT = os.path.dirname(os.path.abspath(__file__))
+STEPS = [
+    ("Extraction", os.path.join("engine", "chp_hotspots_engine.py")),
+    ("Summarization", os.path.join("engine", "agent.py")),
+]
+
+
+def run_step(label, script):
+    print(f" -> {label}: {script}")
+    result = subprocess.run(
+        [sys.executable, script],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        print(f"[!] {label} exited with code {result.returncode}")
+        print(result.stdout[-1500:])
+        print(result.stderr[-1500:])
+        return False
+    return True
+
+
+print("CHP incident pipeline: local loop")
+print(f"Interval: every {INTERVAL} seconds. Press Ctrl+C to stop.\n")
 
 try:
     while True:
-        current_time = time.strftime("%Y-%m-%d %H:%M:%S")
-        print(f"[{current_time}] 🌀 Starting automated ingestion cycle...")
-        
-        # 1. Fire the Playwright Extractor
-        print(" -> Ingesting live DOM layers...")
-        extractor = subprocess.run(["python", "chp_hotspots_engine.py"], capture_output=True, text=True)
-        
-        # 2. Fire the JSON Structuring Parser
-        print(" -> Structuring raw packets to JSON...")
-        parser = subprocess.run(["python", "process_hotspots.py"], capture_output=True, text=True)
-        
-        # Print a quick summary status to the main console log
-        if "SUCCESS" in extractor.stdout and "complete" in parser.stdout:
-            print(f"[✔] Cycle Complete: Data synchronized successfully.")
+        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Starting cycle")
+        for label, script in STEPS:
+            if not run_step(label, script):
+                print("[!] Cycle stopped early. The next cycle will retry.")
+                break
         else:
-            print("[!] Warning: One or more pipeline stages reported a synchronization anomaly.")
-            print(extractor.stdout)
-            print(parser.stdout)
-            
-        print(f"💤 Sleeping for {INTERVAL} seconds before next check. Press Ctrl+C to terminate.\n")
+            print("[+] Cycle complete.")
+
+        print(f"Sleeping {INTERVAL} seconds.\n")
         time.sleep(INTERVAL)
 
 except KeyboardInterrupt:
-    print("\n[-] Orchestrator shutdown command received. Terminating data streams safely...")
+    print("\nStopped by user.")
     sys.exit(0)

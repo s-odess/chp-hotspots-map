@@ -48,7 +48,7 @@ def push_to_github(data_list):
     put_response = requests.put(url, headers=headers, json=payload)
     
     if put_response.status_code in [200, 201]:
-        print("[🚀] GitHub sync complete! Streamlit map will refresh momentarily.")
+        print("[🚀] GitHub sync complete.")
     else:
         print(f"[-] GitHub sync failed: {put_response.status_code} - {put_response.text}")
 
