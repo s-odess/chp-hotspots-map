@@ -7,7 +7,7 @@
         "Latitude": "38.005573",
         "Longitude": "-122.082507",
         "Raw_Details": "Log details unavailable.",
-        "Summary": "Heads up for drivers heading north on I-680, especially as you approach the Pacheco Boulevard off-ramp. We're seeing reports of a traffic collision there, and emergency crews are on their way to the scene. You'll likely encounter some slowdowns and emergency vehicles in the area, so please drive carefully."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0197",
@@ -17,7 +17,7 @@
         "Latitude": "37.949798",
         "Longitude": "-121.294267",
         "Raw_Details": "Log details unavailable.",
-        "Summary": "Heads up for drivers on the SR-4 West connector heading towards I-5 South, especially near the Center Street on-ramp. We're currently seeing a traffic collision with minor injuries in that area. You might notice some slowdowns or lane blockages, so please drive safely and be prepared for a bit of a delay."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0206",
@@ -27,7 +27,7 @@
         "Latitude": "37.126090",
         "Longitude": "-121.706154",
         "Raw_Details": "Log details unavailable.",
-        "Summary": "Just a heads-up for those traveling near Oak Glen Avenue and Willow Springs Road: there's been a traffic collision reported in that area. While specific details are still coming in, you'll likely encounter emergency crews on scene, so please be prepared for some delays and give them space."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0626",
@@ -36,25 +36,18 @@
         "Location": "I5 S / VIA DE SAN YSIDRO",
         "Latitude": "32.551349",
         "Longitude": "-117.045585",
-        "Raw_Details": "Log details unavailable."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "1930",
-        "Time": "4:01 PM",
-        "Type": "Report of Fire",
-        "Location": "I880 N / I880 N I80 W Con",
-        "Latitude": "37.824153",
-        "Longitude": "-122.303489",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "0509",
-        "Time": "1:50 PM",
-        "Type": "Traffic Hazard",
-        "Location": "Cr26a / Road 102b",
-        "Latitude": "38.626023",
-        "Longitude": "-121.720232",
-        "Raw_Details": "Log details unavailable."
+        "Incident_No": "0093",
+        "Time": "4:25 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "SR58 / CACHE CREEK SCALES",
+        "Latitude": "35.112959",
+        "Longitude": "-118.235494",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1821",
@@ -63,16 +56,8 @@
         "Location": "I710 N / DEL AMO BLVD",
         "Latitude": "33.846608",
         "Longitude": "-118.205387",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "1413",
-        "Time": "1:41 PM",
-        "Type": "Trfc Collision-No Inj",
-        "Location": "1801 S Grand Ave",
-        "Latitude": "34.034159",
-        "Longitude": "-118.267350",
-        "Raw_Details": "Log details unavailable."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "1758",
@@ -81,7 +66,8 @@
         "Location": "I10 E / S ATLANTIC BLVD",
         "Latitude": "34.071325",
         "Longitude": "-118.134484",
-        "Raw_Details": "Log details unavailable."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0655",
@@ -90,25 +76,8 @@
         "Location": "Sr163 S / Clairemont Mesa No",
         "Latitude": "32.833583",
         "Longitude": "-117.140232",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "0047",
-        "Time": "4:13 PM",
-        "Type": "Trfc Collision-Unkn Inj",
-        "Location": "Sr99 N / Jno Fruitridge Rd",
-        "Latitude": "38.528611",
-        "Longitude": "-121.469534",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "1683",
-        "Time": "2:53 PM",
-        "Type": "Hit and Run No Injuries",
-        "Location": "0 I580 E",
-        "Latitude": "37.935043",
-        "Longitude": "-122.444523",
-        "Raw_Details": "Log details unavailable."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0703",
@@ -117,7 +86,48 @@
         "Location": "Sr99 N / Jno Fruitridge Rd",
         "Latitude": "38.528611",
         "Longitude": "-121.469534",
-        "Raw_Details": "Log details unavailable."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1834",
+        "Time": "4:14 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Sr138 / 165th St E",
+        "Latitude": "34.506028",
+        "Longitude": "-117.835399",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1413",
+        "Time": "1:41 PM",
+        "Type": "Trfc Collision-No Inj",
+        "Location": "1801 S Grand Ave",
+        "Latitude": "34.034159",
+        "Longitude": "-118.267350",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0047",
+        "Time": "4:13 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Sr99 N / Jno Fruitridge Rd",
+        "Latitude": "38.528611",
+        "Longitude": "-121.469534",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1683",
+        "Time": "2:53 PM",
+        "Type": "Hit and Run No Injuries",
+        "Location": "0 I580 E",
+        "Latitude": "37.935043",
+        "Longitude": "-122.444523",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0221",
@@ -126,6 +136,7 @@
         "Location": "Us101 S  / No Olive Mill Rd Ofr",
         "Latitude": "34.419684",
         "Longitude": "-119.644075",
-        "Raw_Details": "Log details unavailable."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     }
 ]
