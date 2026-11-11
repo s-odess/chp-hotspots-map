@@ -7,7 +7,7 @@
         "Latitude": "38.005573",
         "Longitude": "-122.082507",
         "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Summary": "Narrative queued: awaiting next cycle."
     },
     {
         "Incident_No": "0197",
@@ -16,8 +16,7 @@
         "Location": "Sr4 W I5 S Con / Center St Onr",
         "Latitude": "37.949798",
         "Longitude": "-121.294267",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0206",
@@ -26,8 +25,7 @@
         "Location": "Oak Glen Ave / Willow Springs Rd",
         "Latitude": "37.126090",
         "Longitude": "-121.706154",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0626",
@@ -36,8 +34,7 @@
         "Location": "I5 S / VIA DE SAN YSIDRO",
         "Latitude": "32.551349",
         "Longitude": "-117.045585",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1930",
@@ -46,8 +43,7 @@
         "Location": "I880 N / I880 N I80 W Con",
         "Latitude": "37.824153",
         "Longitude": "-122.303489",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0509",
@@ -56,8 +52,7 @@
         "Location": "Cr26a / Road 102b",
         "Latitude": "38.626023",
         "Longitude": "-121.720232",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1821",
@@ -66,8 +61,7 @@
         "Location": "I710 N / DEL AMO BLVD",
         "Latitude": "33.846608",
         "Longitude": "-118.205387",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1413",
@@ -76,8 +70,7 @@
         "Location": "1801 S Grand Ave",
         "Latitude": "34.034159",
         "Longitude": "-118.267350",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1758",
@@ -86,8 +79,7 @@
         "Location": "I10 E / S ATLANTIC BLVD",
         "Latitude": "34.071325",
         "Longitude": "-118.134484",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0655",
@@ -96,8 +88,7 @@
         "Location": "Sr163 S / Clairemont Mesa No",
         "Latitude": "32.833583",
         "Longitude": "-117.140232",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0047",
@@ -106,8 +97,7 @@
         "Location": "Sr99 N / Jno Fruitridge Rd",
         "Latitude": "38.528611",
         "Longitude": "-121.469534",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "1683",
@@ -116,8 +106,7 @@
         "Location": "0 I580 E",
         "Latitude": "37.935043",
         "Longitude": "-122.444523",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0703",
@@ -126,8 +115,7 @@
         "Location": "Sr99 N / Jno Fruitridge Rd",
         "Latitude": "38.528611",
         "Longitude": "-121.469534",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     },
     {
         "Incident_No": "0221",
@@ -136,7 +124,6 @@
         "Location": "Us101 S  / No Olive Mill Rd Ofr",
         "Latitude": "34.419684",
         "Longitude": "-119.644075",
-        "Raw_Details": "Log details unavailable.",
-        "Summary": "Pending AI analysis..."
+        "Raw_Details": "Log details unavailable."
     }
 ]
