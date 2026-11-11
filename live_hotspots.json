@@ -7,7 +7,7 @@
         "Latitude": "38.005573",
         "Longitude": "-122.082507",
         "Raw_Details": "Log details unavailable.",
-        "Summary": "Narrative queued: awaiting next cycle."
+        "Summary": "Heads up for drivers heading north on I-680, especially as you approach the Pacheco Boulevard off-ramp. We're seeing reports of a traffic collision there, and emergency crews are on their way to the scene. You'll likely encounter some slowdowns and emergency vehicles in the area, so please drive carefully."
     },
     {
         "Incident_No": "0197",
@@ -16,7 +16,8 @@
         "Location": "Sr4 W I5 S Con / Center St Onr",
         "Latitude": "37.949798",
         "Longitude": "-121.294267",
-        "Raw_Details": "Log details unavailable."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Heads up for drivers on the SR-4 West connector heading towards I-5 South, especially near the Center Street on-ramp. We're currently seeing a traffic collision with minor injuries in that area. You might notice some slowdowns or lane blockages, so please drive safely and be prepared for a bit of a delay."
     },
     {
         "Incident_No": "0206",
@@ -25,7 +26,8 @@
         "Location": "Oak Glen Ave / Willow Springs Rd",
         "Latitude": "37.126090",
         "Longitude": "-121.706154",
-        "Raw_Details": "Log details unavailable."
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Just a heads-up for those traveling near Oak Glen Avenue and Willow Springs Road: there's been a traffic collision reported in that area. While specific details are still coming in, you'll likely encounter emergency crews on scene, so please be prepared for some delays and give them space."
     },
     {
         "Incident_No": "0626",
