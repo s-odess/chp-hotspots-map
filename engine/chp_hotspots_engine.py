@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
 from bs4 import BeautifulSoup
 import time
 import json
@@ -10,51 +10,50 @@ from dotenv import load_dotenv
 
 load_dotenv(".env.txt")
 
-url = "https://cad.chp.ca.gov/Traffic.aspx"
+url          = "https://cad.chp.ca.gov/Traffic.aspx"
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_REPO = os.getenv("GITHUB_REPO")
-FILE_PATH = "live_hotspots.json"
+GITHUB_REPO  = os.getenv("GITHUB_REPO")
+FILE_PATH    = "live_hotspots.json"
 
 LOCATION_GRID_KEYS = ("Location", "location", "Loc.", "Loc", "Area")
 
 
 def push_to_github(data_list):
-    """Securely commits and pushes data straight to the GitHub repository API."""
     if not GITHUB_TOKEN or not GITHUB_REPO:
-        print("[-] Skipping Cloud Sync: GITHUB_TOKEN or GITHUB_REPO not found.")
+        print("[-] Skipping GitHub sync: tokens not configured.")
         return
 
-    print("[*] Initiating secure postback sync to GitHub API...")
+    print("[*] Initiating GitHub API sync...")
     api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     headers = {
         "Authorization": f"token {GITHUB_TOKEN}",
         "Accept": "application/vnd.github.v3+json",
     }
 
-    json_content = json.dumps(data_list, indent=4)
-    encoded_content = base64.b64encode(json_content.encode("utf-8")).decode("utf-8")
+    encoded = base64.b64encode(
+        json.dumps(data_list, indent=4).encode("utf-8")
+    ).decode("utf-8")
 
     sha = None
-    response = requests.get(api_url, headers=headers)
-    if response.status_code == 200:
-        sha = response.json().get("sha")
+    r = requests.get(api_url, headers=headers)
+    if r.status_code == 200:
+        sha = r.json().get("sha")
 
     payload = {
         "message": "Pipeline Auto-Update: Refreshing live dispatch hotspots telemetry",
-        "content": encoded_content,
+        "content": encoded,
     }
     if sha:
         payload["sha"] = sha
 
-    put_response = requests.put(api_url, headers=headers, json=payload)
-    if put_response.status_code in [200, 201]:
-        print("[SUCCESS] GitHub cloud sync complete!")
+    put = requests.put(api_url, headers=headers, json=payload)
+    if put.status_code in (200, 201):
+        print("[SUCCESS] GitHub sync complete.")
     else:
-        print(f"[-] Cloud sync failed: {put_response.status_code} - {put_response.text}")
+        print(f"[-] Sync failed: {put.status_code} - {put.text}")
 
 
 def location_from_grid(row_data: dict) -> str:
-    """Read text location from the Hot Spots grid row (header names vary)."""
     for key in LOCATION_GRID_KEYS:
         if key not in row_data:
             continue
@@ -65,7 +64,6 @@ def location_from_grid(row_data: dict) -> str:
 
 
 def location_from_detail_page(soup: BeautifulSoup, row_data: dict) -> str:
-    """Prefer detail-page Location label; fall back to grid column."""
     for row in soup.find_all("tr"):
         cells = row.find_all(["th", "td"])
         if len(cells) < 2:
@@ -95,35 +93,55 @@ def location_from_detail_page(soup: BeautifulSoup, row_data: dict) -> str:
     return location_from_grid(row_data)
 
 
+def extract_raw_details(soup: BeautifulSoup) -> str:
+    """
+    Pulls the full dispatch activity log from the gvIncidentDetails table.
+    This is the primary input for Gemini — timestamps, unit assignments,
+    responding officers, traffic control actions, and status updates.
+    Without this, the AI only has incident type and location to work from.
+    """
+    detail_table = soup.find("table", {"id": "gvIncidentDetails"})
+    if not detail_table:
+        return "Log details unavailable."
+
+    log_lines = []
+    for row in detail_table.find_all("tr"):
+        cells = [c.get_text(" ", strip=True) for c in row.find_all(["td", "th"])]
+        line = " ".join(cells).strip()
+        if line:
+            log_lines.append(line)
+
+    return " | ".join(log_lines) if log_lines else "Log details unavailable."
+
+
+# ── Main Scrape ────────────────────────────────────────────────────────────────
+
 print("[1] Initializing production telemetry engine...")
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     context = browser.new_context(viewport={"width": 1280, "height": 800})
     page = context.new_page()
 
-    print(f"[2] Connecting to dashboard: {url}")
+    print(f"[2] Connecting to CHP CAD: {url}")
     page.goto(url, wait_until="networkidle")
 
-    print("[3] Waiting for UI layout...")
+    print("[3] Selecting Hot Spots view...")
     dropdown = page.locator("select[name='ddlSearches']")
     dropdown.wait_for(state="visible")
-
-    print("[4] Modifying view state to 'Hot Spots'...")
     dropdown.select_option(value="2")
     page.locator("input[name='btnSearchGo']").click()
 
-    print("[5] Synchronizing baseline data grid...")
+    print("[4] Synchronizing incident grid...")
     page.wait_for_selector("table#gvIncidents", state="visible")
     page.wait_for_load_state("networkidle")
 
-    grid_soup = BeautifulSoup(page.content(), "html.parser")
+    grid_soup  = BeautifulSoup(page.content(), "html.parser")
     main_table = grid_soup.find("table", {"id": "gvIncidents"})
 
-    header_row = main_table.find_all("tr")[0]
-    headers = [th.text.strip() for th in header_row.find_all("th")]
-    print(f"[+] Grid columns: {headers}")
-
-    grid_rows = main_table.find_all("tr")[1:] if main_table else []
+    headers    = [th.text.strip() for th in main_table.find_all("tr")[0].find_all("th")]
+    grid_rows  = main_table.find_all("tr")[1:] if main_table else []
+    print(f"[+] Grid columns detected: {headers}")
+    print(f"[+] {len(grid_rows)} active incidents found.")
 
     cached_grid_data = []
     for row in grid_rows:
@@ -133,36 +151,61 @@ with sync_playwright() as p:
     all_deep_incidents = []
 
     for i in range(len(grid_rows)):
-        print(f" -> Extracting profile {i+1}/{len(grid_rows)}...")
+        print(f" -> Drilling into incident {i+1}/{len(grid_rows)}...")
         row_data = cached_grid_data[i]
 
-        page.locator("table#gvIncidents td a:has-text('Details')").nth(i).click()
-        page.wait_for_load_state("networkidle")
-        time.sleep(2)
+        try:
+            page.locator("table#gvIncidents td a:has-text('Details')").nth(i).click()
+            page.wait_for_load_state("networkidle")
+            time.sleep(2)
 
-        page_soup = BeautifulSoup(page.content(), "html.parser")
+            page_soup = BeautifulSoup(page.content(), "html.parser")
 
-        lat, lng = "Unknown", "Unknown"
-        for anchor in page_soup.find_all("a"):
-            coord_match = re.match(r"^(-?\d+\.\d+)\s+(-?\d+\.\d+)$", anchor.text.strip())
-            if coord_match:
-                lat, lng = coord_match.group(1), coord_match.group(2)
-                break
+            # Coordinates
+            lat, lng = "Unknown", "Unknown"
+            for anchor in page_soup.find_all("a"):
+                coord_match = re.match(
+                    r"^(-?\d+\.\d+)\s+(-?\d+\.\d+)$", anchor.text.strip()
+                )
+                if coord_match:
+                    lat, lng = coord_match.group(1), coord_match.group(2)
+                    break
 
-        location = location_from_detail_page(page_soup, row_data)
-        print(f"    Location: {location[:80]}{'...' if len(location) > 80 else ''}")
+            # Location
+            location = location_from_detail_page(page_soup, row_data)
+            print(f"    Location : {location[:80]}")
 
-        all_deep_incidents.append({
-            "Incident_No": row_data.get("No.", "Unknown"),
-            "Time": row_data.get("Time", "Unknown"),
-            "Type": row_data.get("Type", "Unknown"),
-            "Location": location,
-            "Latitude": lat,
-            "Longitude": lng,
-            "Summary": "Pending AI analysis...",
-        })
+            # Raw dispatch log — the layer that feeds Gemini
+            raw_details = extract_raw_details(page_soup)
+            log_preview = raw_details[:120].replace("\n", " ")
+            print(f"    Log data : {log_preview}...")
 
-        page.go_back()
+            all_deep_incidents.append({
+                "Incident_No": row_data.get("No.",      "Unknown"),
+                "Time":        row_data.get("Time",     "Unknown"),
+                "Type":        row_data.get("Type",     "Unknown"),
+                "Location":    location,
+                "Latitude":    lat,
+                "Longitude":   lng,
+                "Raw_Details": raw_details,
+                "Summary":     "Pending AI analysis...",
+            })
+
+            page.go_back()
+            page.wait_for_selector("table#gvIncidents", state="visible", timeout=15000)
+
+        except PlaywrightTimeout as te:
+            print(f"    [!] Timeout on incident {i+1}, skipping: {te}")
+            page.goto(url, wait_until="networkidle")
+            page.locator("select[name='ddlSearches']").select_option(value="2")
+            page.locator("input[name='btnSearchGo']").click()
+            page.wait_for_selector("table#gvIncidents", state="visible")
+
+        except Exception as e:
+            print(f"    [!] Error on incident {i+1}, skipping: {e}")
+            continue
+
+    browser.close()
 
 with open(FILE_PATH, "w", encoding="utf-8") as f:
     json.dump(all_deep_incidents, f, indent=4)
