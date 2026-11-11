@@ -4,7 +4,7 @@ A Python pipeline that extracts live incident data from the California Highway P
 
 **Status:** The pipeline runs end to end when launched by hand, and the demo video shows a live run. A GitHub Actions workflow is included, and its cron schedule is disabled because the pipeline has not been run on a recurring schedule, owing to Gemini API quota limits on the free tier.
 
-**Demo video:** [chp-pipeline-demo.mp4](chp-pipeline-demo.mp4), a screen recording of a live command line run in Ubuntu under WSL. It shows extraction of 14 incidents, Gemini summaries for three of them, the GitHub sync, and the runner entering its 180-second wait.
+**Demo video:** Watch it on the portfolio page (https://s-odess.github.io/Portfolio/#chp-pipeline), a screen recording of a live command line run in Ubuntu under WSL. It shows extraction of 14 incidents, Gemini summaries for three of them, the GitHub sync, and the runner entering its 180-second wait. The file is also in this repository as chp-pipeline-demo.mp4 for download.
 
 ---
 
