@@ -1,129 +1,142 @@
 [
     {
-        "Incident_No": "1091",
-        "Time": "10:27 AM",
-        "Type": "Car Fire",
-        "Location": "I80 W / Cherry Glen Rd Ofr",
-        "Latitude": "38.328394",
-        "Longitude": "-122.022082",
+        "Incident_No": "1717",
+        "Time": "3:03 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "I680 N / PACHECO BLVD OFR",
+        "Latitude": "38.005573",
+        "Longitude": "-122.082507",
         "Raw_Details": "Log details unavailable.",
-        "Summary": "Narrative queued: awaiting next cycle."
-    },
-    {
-        "Incident_No": "1204",
-        "Time": "11:04 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "0 I80 W",
-        "Latitude": "37.788645",
-        "Longitude": "-122.388145",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "0224",
-        "Time": "7:43 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr60 W / Pigeon Pass Rd",
-        "Latitude": "33.940876",
-        "Longitude": "-117.261372",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "1111",
-        "Time": "11:47 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "SR118 E / WO I405",
-        "Latitude": "34.265903",
-        "Longitude": "-118.474029",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "1263",
-        "Time": "11:26 AM",
-        "Type": "Car Fire",
-        "Location": "I580 W / FOOTHILL RD ONR",
-        "Latitude": "37.698485",
-        "Longitude": "-121.941735",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "0172",
-        "Time": "9:13 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "35144-35451 Sr198",
-        "Latitude": "36.404949",
-        "Longitude": "-118.996679",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "0202",
-        "Time": "11:50 AM",
-        "Type": "Car Fire",
-        "Location": "I580 W / FOOTHILL RD ONR",
-        "Latitude": "37.698485",
-        "Longitude": "-121.941735",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "1319",
-        "Time": "11:44 AM",
-        "Type": "Traffic Hazard",
-        "Location": "Us101 N / Freitas Pkwy Ofr",
-        "Latitude": "38.002784",
-        "Longitude": "-122.538358",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "0028",
-        "Time": "12:07 PM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr36 / Sr89 Chester",
-        "Latitude": "40.278716",
-        "Longitude": "-121.253457",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "1038",
-        "Time": "11:16 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "Sr91 W / Eo I605",
-        "Latitude": "33.876456",
-        "Longitude": "-118.100626",
-        "Raw_Details": "Log details unavailable."
-    },
-    {
-        "Incident_No": "1014",
-        "Time": "11:01 AM",
-        "Type": "Trfc Collision-1141 Enrt",
-        "Location": "40697 130th St E",
-        "Latitude": "34.621942",
-        "Longitude": "-117.898928",
-        "Raw_Details": "Log details unavailable."
+        "Summary": "Pending AI analysis..."
     },
     {
         "Incident_No": "0197",
-        "Time": "11:45 AM",
+        "Time": "3:26 PM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "Sr4 W I5 S Con / Center St Onr",
+        "Latitude": "37.949798",
+        "Longitude": "-121.294267",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0206",
+        "Time": "12:59 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Oak Glen Ave / Willow Springs Rd",
+        "Latitude": "37.126090",
+        "Longitude": "-121.706154",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0626",
+        "Time": "3:04 PM",
+        "Type": "Trfc Collision-Minor Inj",
+        "Location": "I5 S / VIA DE SAN YSIDRO",
+        "Latitude": "32.551349",
+        "Longitude": "-117.045585",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1930",
+        "Time": "4:01 PM",
+        "Type": "Report of Fire",
+        "Location": "I880 N / I880 N I80 W Con",
+        "Latitude": "37.824153",
+        "Longitude": "-122.303489",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0509",
+        "Time": "1:50 PM",
         "Type": "Traffic Hazard",
-        "Location": "Us101 N / Freitas Pkwy Ofr",
-        "Latitude": "38.002784",
-        "Longitude": "-122.538358",
-        "Raw_Details": "Log details unavailable."
+        "Location": "Cr26a / Road 102b",
+        "Latitude": "38.626023",
+        "Longitude": "-121.720232",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "1315",
-        "Time": "11:40 AM",
+        "Incident_No": "1821",
+        "Time": "4:10 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "I710 N / DEL AMO BLVD",
+        "Latitude": "33.846608",
+        "Longitude": "-118.205387",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1413",
+        "Time": "1:41 PM",
         "Type": "Trfc Collision-No Inj",
-        "Location": "1990 Cooper Rd",
-        "Latitude": "38.382357",
-        "Longitude": "-122.801563",
-        "Raw_Details": "Log details unavailable."
+        "Location": "1801 S Grand Ave",
+        "Latitude": "34.034159",
+        "Longitude": "-118.267350",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     },
     {
-        "Incident_No": "0055",
-        "Time": "11:28 AM",
-        "Type": "Trfc Collision-1141Enrt",
-        "Location": "Sr22 W / Harbor Blvd",
-        "Latitude": "33.767945",
-        "Longitude": "-117.920267",
-        "Raw_Details": "Log details unavailable."
+        "Incident_No": "1758",
+        "Time": "3:49 PM",
+        "Type": "Car Fire",
+        "Location": "I10 E / S ATLANTIC BLVD",
+        "Latitude": "34.071325",
+        "Longitude": "-118.134484",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0655",
+        "Time": "3:27 PM",
+        "Type": "Trfc Collision-1141 Enrt",
+        "Location": "Sr163 S / Clairemont Mesa No",
+        "Latitude": "32.833583",
+        "Longitude": "-117.140232",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0047",
+        "Time": "4:13 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Sr99 N / Jno Fruitridge Rd",
+        "Latitude": "38.528611",
+        "Longitude": "-121.469534",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "1683",
+        "Time": "2:53 PM",
+        "Type": "Hit and Run No Injuries",
+        "Location": "0 I580 E",
+        "Latitude": "37.935043",
+        "Longitude": "-122.444523",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0703",
+        "Time": "4:11 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Sr99 N / Jno Fruitridge Rd",
+        "Latitude": "38.528611",
+        "Longitude": "-121.469534",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
+    },
+    {
+        "Incident_No": "0221",
+        "Time": "3:48 PM",
+        "Type": "Trfc Collision-Unkn Inj",
+        "Location": "Us101 S  / No Olive Mill Rd Ofr",
+        "Latitude": "34.419684",
+        "Longitude": "-119.644075",
+        "Raw_Details": "Log details unavailable.",
+        "Summary": "Pending AI analysis..."
     }
 ]
